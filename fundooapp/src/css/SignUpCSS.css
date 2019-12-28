@@ -1,0 +1,13 @@
+.MainContainer {
+    border: 1px solid lightgray;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    margin: auto;
+    width: 32%;
+    padding: 50px;
+}
+.RowContainer{
+    display: flex;
+    flex-direction: row;
+}
