@@ -4,10 +4,11 @@
     flex-direction: column;
     /* justify-content: center; */
     margin: auto;
-    width: 32%;
+    width: 30%;
     padding: 50px;
 }
 .RowContainer{
     display: flex;
     flex-direction: row;
+    justify-content:space-between;
 }
