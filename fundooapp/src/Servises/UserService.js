@@ -1,17 +1,34 @@
 import AxiosService from '../Servises/AxiosService';
 
 var axiosObj = new AxiosService;
+let tokenObject={
+    tokenAuth:''
+}
 export default class UserService{
 
+
     Login(data){
-        return axiosObj.Post("https://localhost:44370/api/Account/login",data)
+        return axiosObj.Post("Account/login",data,tokenObject.tokenAuth)
     }
 
     RegisterUser(data){
-        return axiosObj.Post("https://localhost:44370/api/Account/register",data)
+        return axiosObj.Post("Account/register",data,tokenObject.tokenAuth)
     }
 
     ForgetPassword(data){
-        return axiosObj.Post("https://localhost:44370/api/Account/forgot",data)
+        return axiosObj.Post("Account/forgot",data,tokenObject.tokenAuth)
+    }
+
+    resetPassword(data){
+        console.log("token check",data);
+        tokenObject.tokenAuth={
+            headers: {
+                            'Content-Type':'application/json',
+                            'Accept':'*',
+                             Authorization: 'Bearer '+localStorage.getItem('Token')
+                     }
+        }
+        return axiosObj.Post("Account/reset",data,tokenObject.tokenAuth)
+        
     }
 }

@@ -1,9 +1,22 @@
 import axios from 'axios';
+var Baseurl="https://localhost:44370/api/";
 
 export default class AxiosService {
     
-    Post(path,data){
-       console.log('axiosService data :',data);
-       return axios.post(path,data);
+    Post(path,data,tokenAuth){
+       console.log('axiosService data :',data,tokenAuth);
+       return axios.post(Baseurl+path,data,tokenAuth);
     }
+    GET(path,data,tokenAuth){
+        console.log('axiosService data :',data,tokenAuth);
+        return axios.get(Baseurl+path,data,tokenAuth);
+     }
+     PUT(path,data,tokenAuth){
+        console.log('axiosService data :',data,tokenAuth);
+        return axios.put(Baseurl+path,data,tokenAuth);
+     }
+     DELETE(path,data,tokenAuth){
+        console.log('axiosService data :',data,tokenAuth);
+        return axios.delete(Baseurl+path,data,tokenAuth);
+     }
 }

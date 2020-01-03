@@ -51,7 +51,7 @@ class ForgetPassword extends Component {
                 </div>
                 <div style={{ textAlign: "center" }}>
                     Account recovery <br></br>Recover your Fundoo Account
-                    </div>
+                    </div><br></br><br></br>
 
                 <TextField style={{ marginTop: "5%" }}
                     id="outlined-basic"
@@ -64,9 +64,7 @@ class ForgetPassword extends Component {
                     onChange={this.onChange}
                 />
 
-                <div className="RowContainer">
-
-                    <Link to="/register" style={{ color: "#1a73e8", textDecoration: 'none', fontSize: '90%' }}> Create account </Link>
+                <div className="RowContainer" style={{ justifyContent: "flex-end",marginRight:"5%" }}>
 
                     <Button variant="contained" onClick={this.ForgetUserPassword} style={{ backgroundColor: '#1a73e8', color: 'white', textTransform: 'capitalize' }} disableElevation>
                         Next

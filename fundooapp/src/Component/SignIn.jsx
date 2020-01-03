@@ -26,8 +26,10 @@ login =() =>{
     loginObject.Login(data).then(response =>{
         console.log('this is response from backend:',response);
         var token= response.data.data.token;
-        console.log('token:',token);
+        console.log('Backend recevied token:',token);
         localStorage.setItem('Token',token)
+        var localStorageToken=localStorage.getItem('Token')
+        console.log(localStorageToken);
         
     })
     
@@ -85,6 +87,7 @@ onChange=(e) =>{
                     onChange={ this.onChange}
                     // onChange={(event=>this.change('password',event))}
                 />
+                <Link to="/forget" style ={{color:"#1a73e8",textDecoration:'none',fontSize:'90%'}}> Forgot Password? </Link>
 
                 <div className="RowContainer">
                     
