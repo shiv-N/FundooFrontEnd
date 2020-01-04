@@ -1,6 +1,6 @@
 import AxiosService from '../Servises/AxiosService';
 
-var axiosObj = new AxiosService;
+var axiosObj = new AxiosService();
 let tokenObject={
     tokenAuth:''
 }

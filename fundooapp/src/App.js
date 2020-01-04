@@ -5,17 +5,27 @@ import Registration from './Component/Registration';
 import ForgetPassword from './Component/ForgetPassword';
 import resetPassword from './Component/ResetPassword';
 import {BrowserRouter,Route} from 'react-router-dom';
-
+import Dashboard from './Component/Dashboard';
+import Note from './Component/Note';
+import Reminder from './Component/Reminder';
+import Trash from './Component/Trash';
+import Label from './Component/Label';
+import Archive from './Component/Archive';
 
 function App() {
   return (
     <BrowserRouter>
-      <div>
+      
         <Route path = "/" exact component = {SignIn} />
         <Route path = "/register" component = {Registration} />
         <Route path = "/forget" component = { ForgetPassword } />
         <Route path = "/reset/:token" component = { resetPassword } />
-      </div>
+        <Route path = "/dashboard" component = { Dashboard } />
+        <Route path = "/dashboard/note" component = { Note } />
+        <Route path = "/dashboard/reminder" component = { Reminder } />
+        <Route path = "/dashboard/archive" component = { Archive } />
+        <Route path = "/dashboard/trash" component = { Trash } />
+        <Route path = "/dashboard/label" component = { Label } />
      </BrowserRouter>
   );
 }

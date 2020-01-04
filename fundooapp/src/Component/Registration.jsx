@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import UserService from '../Servises/UserService';
 
-var userService = new UserService;
+var userService = new UserService();
 
 class SignUp extends Component {
 

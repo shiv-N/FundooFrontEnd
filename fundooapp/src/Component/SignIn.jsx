@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import UserService from '../Servises/UserService';
 
-var loginObject = new UserService;
+var loginObject = new UserService();
 class Login extends Component {
     
   
@@ -30,6 +30,7 @@ login =() =>{
         localStorage.setItem('Token',token)
         var localStorageToken=localStorage.getItem('Token')
         console.log(localStorageToken);
+        this.props.history.push('/dashboard');
         
     })
     

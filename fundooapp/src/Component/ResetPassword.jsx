@@ -5,7 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import UserService from '../Servises/UserService';
 
-var userService = new UserService;
+var userService = new UserService();
 
 class ResetPassword extends Component {
 

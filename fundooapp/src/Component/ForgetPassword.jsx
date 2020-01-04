@@ -3,10 +3,9 @@ import { Component } from 'react';
 import '../css/SignInCSS.css';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { Link } from 'react-router-dom';
 import UserService from '../Servises/UserService';
 
-var userService = new UserService;
+var userService = new UserService();
 class ForgetPassword extends Component {
 
     constructor(props) {
