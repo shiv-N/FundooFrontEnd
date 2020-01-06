@@ -17,7 +17,7 @@ import { useStyles } from '../css/NavbarCSS'
 
 
 
-export default function Navbar() {
+export default function Navbar(props) {
   const classes = useStyles();
   const [view, setView] = React.useState(false)
 
@@ -33,7 +33,7 @@ export default function Navbar() {
           >
             <MenuIcon />
           </IconButton> */}
-          <MenuDrawer/>
+          <MenuDrawer DashboardProps={props.DashboardProps}/>
           <Typography className={classes.title} variant="h6" noWrap>
             Fundoo
           </Typography>

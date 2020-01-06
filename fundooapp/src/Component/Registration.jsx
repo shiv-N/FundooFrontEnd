@@ -19,11 +19,9 @@ class SignUp extends Component {
             email:'',
             password:'',
             userAddress:'',
-            serviceType:''
+            serviceType:'Basic'
         }
     }
-
-
 
     Registration=() =>{
 
@@ -49,6 +47,7 @@ class SignUp extends Component {
                 [e.target.name]: e.target.value
             }
         )
+        console.log(e.target.value);
         
     }
 
@@ -146,15 +145,11 @@ class SignUp extends Component {
                         />
                     </div>
                 </div>
-                <div className="RowContainer" style={{ marginTop: "2%" }}>
-                        <TextField
-                            id="outlined-basic"
-                            label="ServiceType"
-                            variant="outlined"
-                            name="serviceType"
-                            margin="dense"
-                            onChange={ this.onChange}
-                        />
+                    <div  style={{ marginTop: "5%" }}>
+                        <select name="serviceType" value={this.state.serviceType} onChange={ this.onChange}>
+                            <option>Basic</option>
+                            <option>Advance</option>
+                        </select>
                     </div>
                 <div className="RowContainer" style={{ marginTop: "7%" }}>
 

@@ -3,11 +3,14 @@ import { Component } from 'react';
 import Navbar from './Navbar'
 
 class Dashboard extends Component{
+    // constructor(props){
+    //     super(props)
+    // }
 
     render(){
         return(
             <div>
-                <Navbar/>
+                <Navbar DashboardProps={this.props}/>
             </div>
         )
     }

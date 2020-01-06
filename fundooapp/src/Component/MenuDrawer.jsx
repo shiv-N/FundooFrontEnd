@@ -12,13 +12,13 @@ import { MenuOutlined } from '@material-ui/icons';
 import { useStyles } from '../css/NavbarCSS'
 
 
-export default function MenuDrawer() {
+export default function MenuDrawer(props) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
-    const HandleDrawerOpen=()=>{
+    const HandleDrawerOpen = () => {
         setOpen(true)
     }
-    const HandleDrawerClose=()=>{
+    const HandleDrawerClose = () => {
         setOpen(false)
     }
 
@@ -29,7 +29,13 @@ export default function MenuDrawer() {
         >
             <List>
                 {['Notes', 'Reminders'].map((text, index) => (
-                    <ListItem button key={text}>
+                    <ListItem button key={text}
+                        onClick={() => {
+                            index % 2 === 0 ?
+                                props.DashboardProps.history.push('/dashboard/note')
+                                : props.DashboardProps.history.push('/dashboard/reminder')
+                        }}
+                    >
                         <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
                         <ListItemText primary={text} />
                     </ListItem>
@@ -37,17 +43,20 @@ export default function MenuDrawer() {
             </List>
             <Divider />
             <List>
-                {['Label'].map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                        <ListItemText primary={text} />
-                    </ListItem>
-                ))}
+                <ListItem button onClick={() => props.DashboardProps.history.push('/dashboard/label')} >
+                    <ListItemIcon><MailIcon /></ListItemIcon>
+                    <ListItemText primary={'Edit Label'} />
+                </ListItem>
             </List>
             <Divider />
             <List>
-                {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                    <ListItem button key={text}>
+                {['Archive', 'Trash'].map((text, index) => (
+                    <ListItem button key={text} 
+                    onClick={() => {
+                        index % 2 === 0 ?
+                            props.DashboardProps.history.push('/dashboard/archive')
+                            : props.DashboardProps.history.push('/dashboard/trash')
+                    }}>
                         <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
                         <ListItemText primary={text} />
                     </ListItem>
@@ -60,16 +69,16 @@ export default function MenuDrawer() {
 
     return (
         <>
-            <IconButton onClick={!open ? HandleDrawerOpen: HandleDrawerClose }>
-                 <MenuOutlined />
-             </IconButton>
+            <IconButton onClick={!open ? HandleDrawerOpen : HandleDrawerClose}>
+                <MenuOutlined />
+            </IconButton>
             <Drawer
                 anchor='left'
                 open={open}
                 variant='persistent'
                 className={classes.drawer}
-                >
-                
+            >
+
                 {sideList}
             </Drawer>
 

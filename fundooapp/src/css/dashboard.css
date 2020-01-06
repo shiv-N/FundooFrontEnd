@@ -1,0 +1,12 @@
+.maincontainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.takeNote{
+    display: flex;
+    margin-top: 2em;
+    align-self: center;
+    /* background-color: rebeccapurple; */
+} 

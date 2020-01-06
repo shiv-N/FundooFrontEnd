@@ -7,32 +7,67 @@ import { Link } from 'react-router-dom';
 import UserService from '../Servises/UserService';
 
 var loginObject = new UserService();
+
 class Login extends Component {
-    
-  
+
     constructor(props){
         super(props)
         this.state={
             email:'',
-            password:''
-        }
+            password:'',
+            emailError:'',
+            passwordError:''
+        };
         // this.login= this.login.bind(this)
     }
-login =() =>{
-    var data = {
-        Email: this.state.email,
-        Password : this.state.password
+login =(event) =>{
+    event.preventDefault();
+    let isValid = this.validate();
+    
+    if(isValid){
+        var data = {
+            Email: this.state.email,
+            Password : this.state.password
+        }
+        loginObject.Login(data).then(response =>{
+
+                console.log('this is response from backend:',response);
+            var token= response.data.data.token;
+            console.log('Backend recevied token:',token);
+            localStorage.setItem('Token',token)
+            var localStorageToken=localStorage.getItem('Token')
+            console.log(localStorageToken);
+            this.props.history.push('/dashboard/note');
+           
+        })
+    }  
+    
+}
+
+validate = () =>{
+
+    let valid = true;
+    if(!this.state.email.match(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/)){
+        this.setState({emailError:'Invalid Email Address'})
+        console.log(this.state.emailError);
+        valid=false;
     }
-    loginObject.Login(data).then(response =>{
-        console.log('this is response from backend:',response);
-        var token= response.data.data.token;
-        console.log('Backend recevied token:',token);
-        localStorage.setItem('Token',token)
-        var localStorageToken=localStorage.getItem('Token')
-        console.log(localStorageToken);
-        this.props.history.push('/dashboard');
-        
-    })
+    else{
+        this.setState({emailError:''})
+    }
+    if(!this.state.password){
+        this.setState({passwordError:'Empty Password'})
+        console.log(this.state.passwordError);
+        valid=false;
+    }
+    else{
+        this.setState({passwordError:''})
+    }
+    if(valid){
+        return true;
+    }else{
+        return false;
+    }
     
 }
 // change=(key,event)=>{
@@ -45,6 +80,7 @@ onChange=(e) =>{
             [e.target.name]: e.target.value
         }
     )
+    console.log(this.state);
     
 }
     render() {
@@ -72,9 +108,12 @@ onChange=(e) =>{
                     fullWidth
                     name='email'
                     // value={this.state.email}
-                    onChange={ this.onChange}
+                    onChange={this.onChange}
                     // onChange={(event)=>this.change('email',event)}
                 />
+                <div style={{fontSize:12,color:'red'}}>
+                    {this.state.emailError }
+                </div>
                 <TextField className="RowContainer" style={{ marginTop: "5%" }}
                     id="outlined-basic"
                     label="Password"
@@ -88,6 +127,9 @@ onChange=(e) =>{
                     onChange={ this.onChange}
                     // onChange={(event=>this.change('password',event))}
                 />
+                 <div style={{fontSize:12,color:'red'}}>
+                    {this.state.passwordError}
+                </div>
                 <Link to="/forget" style ={{color:"#1a73e8",textDecoration:'none',fontSize:'90%'}}> Forgot Password? </Link>
 
                 <div className="RowContainer">
