@@ -31,4 +31,25 @@ export default class UserService{
         return axiosObj.Post("Account/reset",data,tokenObject.tokenAuth)
         
     }
+
+    addUserNote(data){
+        tokenObject.tokenAuth={
+            headers: {
+                            'Content-Type':'application/json',
+                            'Accept':'*',
+                             Authorization: 'Bearer '+localStorage.getItem('Token')
+                     }
+        }
+        return axiosObj.Post("Notes",data,tokenObject.tokenAuth)
+    }
+    getAllNote(){
+        tokenObject.tokenAuth={
+            headers: {
+                            'Content-Type':'application/json',
+                            'Accept':'*',
+                             Authorization: 'Bearer '+localStorage.getItem('Token')
+                     }
+        }
+        return axiosObj.GET("Notes",tokenObject.tokenAuth)
+    }
 }

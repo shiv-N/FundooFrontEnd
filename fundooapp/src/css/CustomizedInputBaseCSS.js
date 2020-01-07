@@ -17,5 +17,14 @@ export const useStyles = theme =>({
     border:'none',
     boxShadow:'none',
     borderRadius:'none'
+  },
+  root3: {
+    padding: '2px 4px',
+    display: 'flex',
+    flexDirection: 'row',
+    width: 500,
+    maxWidth: 500,
+    boxShadow:'0.1em 0.1em 0.4em 0em grey',
+    borderRadius:'none'
   }
 })

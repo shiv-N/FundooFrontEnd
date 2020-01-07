@@ -10,3 +10,9 @@
     align-self: center;
     /* background-color: rebeccapurple; */
 } 
+.main{
+    display: flex;
+    flex-direction: column;
+    float: left;
+    justify-content: center;
+}

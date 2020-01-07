@@ -35,8 +35,6 @@ login =(event) =>{
             var token= response.data.data.token;
             console.log('Backend recevied token:',token);
             localStorage.setItem('Token',token)
-            var localStorageToken=localStorage.getItem('Token')
-            console.log(localStorageToken);
             this.props.history.push('/dashboard/note');
            
         })
