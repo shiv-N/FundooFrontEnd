@@ -34,7 +34,6 @@ class CustomizedInputBase extends Component{
     }
 
     AddNote=() =>{
-
       let noteData = {
         Title: this.state.title,
         Message: this.state.noteDescription,
@@ -46,13 +45,18 @@ class CustomizedInputBase extends Component{
         IsNote: this.state.isNote,
         IsTrash: this.state.isTrash
       }
+
       userService.addUserNote(noteData).then(
+
           response => {
               console.log('this is Note response from backend:',response);
+          
+              this.props.handleGetNotes();
+              
           }
       )
   }
-
+  
   onChange=(e) =>{
     this.setState(
         {
@@ -109,11 +113,11 @@ class CustomizedInputBase extends Component{
         <PersonAddOutlinedIcon/>
       </IconButton>
 
-      <IconButton className='iconButton' aria-label="colourChange">
+      <IconButton className='iconButton' aria-label="colour">
         <ColorLensOutlinedIcon/>
       </IconButton>
 
-      <IconButton className='iconButton' aria-label="addImage">
+      <IconButton className='iconButton' aria-label="Image">
         <ImageOutlinedIcon/>
       </IconButton>
 

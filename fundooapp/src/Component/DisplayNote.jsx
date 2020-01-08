@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
-import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import AddAlertOutlinedIcon from '@material-ui/icons/AddAlertOutlined';
+import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
+import ColorLensOutlinedIcon from '@material-ui/icons/ColorLensOutlined';
+import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
+import ArchiveOutlinedIcon from '@material-ui/icons/ArchiveOutlined';
+import MoreVertOutlinedIcon from '@material-ui/icons/MoreVertOutlined';
 import { useStyles } from '../css/displayNote'
 import { withStyles } from '@material-ui/core/styles'
-import InputBase from '@material-ui/core/InputBase';
 import '../css/displayNote'
 
 // const [expanded, setExpanded] = React.useState(false);
@@ -23,61 +22,49 @@ class DisplayNote extends Component {
 
   render() {
     const { classes } = this.props;
-    console.log('display note component props:', this.props);
 
-    return(
-      <div className={classes.mainCard}>
-      {
-        this.props.note.length !== 0 ?
-        this.props.note.map( data => (
-          
-          
-        
-            <Card className={classes.card}>
-              {/* <CardHeader
-                action={
-                  <IconButton >
-                    <MoreVertIcon />
-                  </IconButton>
-                }
-                title="Shrimp and Chorizo Paella"
-              /> */}
-               <CardMedia
-                className={classes.media}
-                image="/static/images/cards/paella.jpg"
-                title="Paella dish"
-              />
-              <InputBase
-                className='input'
-                placeholder="Title"
-                value={data.title}
-                fullWidth={true}
-              />
-             
-              <CardContent>
-              <InputBase style={{backgroundColor:'red',color:"#1a73e8"}}
-                placeholder="Message"
-                value={data.message}
-                fullWidth={true}
-              />
-              </CardContent>
-              <CardActions disableSpacing>
-                <IconButton aria-label="add to favorites">
-                  <FavoriteIcon />
-                </IconButton>
-                <IconButton aria-label="share">
-                  <ShareIcon />
-                </IconButton>
-              </CardActions>
-            </Card>
-          
-        )
-        ) : null
-    
-      }
-      </div>
+    return (
+
+      <Card className={classes.card}>
+
+        <Typography>
+          {this.props.noteData.title}
+        </Typography>
+
+        <CardContent>
+          <Typography>
+            {this.props.noteData.message}
+          </Typography>
+
+        </CardContent>
+        <CardActions className={classes.icon} disableSpacing>
+          <IconButton aria-label="reminder">
+            <AddAlertOutlinedIcon />
+          </IconButton>
+
+          <IconButton aria-label="collaboration">
+            <PersonAddOutlinedIcon />
+          </IconButton>
+
+          <IconButton aria-label="colour">
+            <ColorLensOutlinedIcon />
+          </IconButton>
+
+          <IconButton aria-label="Image">
+            <ImageOutlinedIcon />
+          </IconButton>
+
+          <IconButton aria-label="archive">
+            <ArchiveOutlinedIcon />
+          </IconButton>
+
+          <IconButton aria-label="moreMenu">
+            <MoreVertOutlinedIcon />
+          </IconButton>
+        </CardActions>
+      </Card>
     )
-    
+
   }
 }
 

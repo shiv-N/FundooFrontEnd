@@ -4,17 +4,18 @@ export const useStyles = theme => ({
     card: {
         padding: '2px 10px',
         display: 'flex',
-        alignItems: 'center',
         flexDirection: 'column',
-        width: "100%",
-        boxShadow:'0.1em 0.1em 0.4em 0em grey',
-        // maxWidth: 250,
+        width: 250,
+        maxWidth: 250,
+        boxShadow:'0.1em 0.1em 0.4em 0em grey',   
+        marginRight:'1em',
+        marginBottom:'1em'
       
     },
-    media: {
-      height: 0,
-      paddingTop: '56.25%', // 16:9
-      backgroundColor:'red'
+    icon: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-around'
     },
     mainCard:{
       display: 'flex',
