@@ -8,7 +8,7 @@ import { Container } from '@material-ui/core';
 import '../css/dashboard.css';
 import { ClickAwayListener } from '@material-ui/core';
 import DisplayNote from './DisplayNote'
-import UserService from '../Servises/UserService';
+import UserService from '../Service/UserService';
 
 var userService = new UserService();
 
@@ -26,20 +26,8 @@ class Note extends Component {
     }
 
     handleGetNotes = () => {
-        console.log('get all  notes');
         
         userService.getAllNote().then(response => {
-            console.log(response);
-            let responseArray = []
-
-            console.log("response of notes--> ", response.data.data)
-            // response.data.data.map((data) => {
-            //     responseArray.push(data);
-            // });
-            // console.log('array');
-            // console.log(responseArray);
-
-
             this.setState({
                 getAllUserNotes: response.data.data,
                 view: false,
@@ -53,7 +41,6 @@ class Note extends Component {
                 view: value
             }
         )
-        console.log(this.state.view);
 
     }
     render() {
@@ -63,9 +50,6 @@ class Note extends Component {
         
         return (
 
-            // <div style={{ marginTop: "8%" }}>
-            //    <TakeNotes/><tr><DisplayComponets/> </tr>from Note
-            // </div>
             <div>
                 <Container style={{ marginTop: '6em' }}>
                     <div className="maincontainer">
@@ -79,19 +63,13 @@ class Note extends Component {
                     <div className="noteContainer">
                         {
                             this.state.getAllUserNotes !== null &&
-                            (this.state.getAllUserNotes).map((value, index) => (
-                                <DisplayNote
-                                    noteData={value}
-                                />
-
+                            (this.state.getAllUserNotes).map((value,index) => (
+                                <DisplayNote noteData={value} key={index} handleGetNotes={this.handleGetNotes}/>
                             ))
                         }
                     </div>
                 </Container>
-                {/* <div className="main" style={{marginTop: '4em',marginLeft:"20%"}}>
-                <DisplayNote note={this.state.getAllUserNotes}/>
-            </div> */}
-
+               
             </div>
         )
     }

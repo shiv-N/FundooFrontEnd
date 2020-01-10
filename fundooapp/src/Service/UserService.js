@@ -1,4 +1,4 @@
-import AxiosService from '../Servises/AxiosService';
+import AxiosService from './AxiosService';
 
 var axiosObj = new AxiosService();
 let tokenObject={
@@ -51,5 +51,40 @@ export default class UserService{
                      }
         }
         return axiosObj.GET("Notes",tokenObject.tokenAuth)
+    }
+
+    getAllArchiveNotes(){
+        tokenObject.tokenAuth={
+            headers: {
+                            'Content-Type':'application/json',
+                            'Accept':'*',
+                             Authorization: 'Bearer '+localStorage.getItem('Token')
+                     }
+        }
+        return axiosObj.GET("Notes/archive",tokenObject.tokenAuth)
+    }
+
+    ChangeColor(data,noteId){
+        tokenObject.tokenAuth={
+            headers: {
+                            'Content-Type':'application/json',
+                            'Accept':'*',
+                             Authorization: 'Bearer '+localStorage.getItem('Token')
+                     }
+        }
+        return axiosObj.PUT("Notes/color/"+noteId,data,tokenObject.tokenAuth)
+    }
+
+    Archive(noteId){
+        console.log(noteId);
+        
+        tokenObject.tokenAuth={
+            headers: {
+                            'Content-Type':'application/json',
+                            'Accept':'*',
+                             Authorization: 'Bearer '+localStorage.getItem('Token')
+                     }
+        }
+        return axiosObj.PUT("Notes/archive/"+noteId,tokenObject.tokenAuth)
     }
 }

@@ -10,7 +10,7 @@ import Note from './Component/Note';
 import Reminder from './Component/Reminder';
 import Trash from './Component/Trash';
 import Label from './Component/Label';
-import Archive from './Component/Archive';
+import Archive from './Component/ArchiveDisplay';
 
 function App() {
   return (

@@ -13,7 +13,7 @@ import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
 import ArchiveOutlinedIcon from '@material-ui/icons/ArchiveOutlined';
 import MoreVertOutlinedIcon from '@material-ui/icons/MoreVertOutlined';
 import Button from '@material-ui/core/Button';
-import UserService from '../Servises/UserService';
+import UserService from '../Service/UserService';
 
 var userService = new UserService();
 

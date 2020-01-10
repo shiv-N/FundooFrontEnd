@@ -18,10 +18,11 @@
 }
 .noteContainer{
     margin-top: 2em;
-    width: 85%;
-    margin-left: 10em;
+    width: 64%;
+    margin-left: 15em;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    background-color:lime;
+    
+    /* background-color:lime; */
 }

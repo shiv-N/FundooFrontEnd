@@ -3,7 +3,7 @@ import { Component } from 'react';
 import '../css/RegistrationCSS.css';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import UserService from '../Servises/UserService';
+import UserService from '../Service/UserService';
 
 var userService = new UserService();
 
