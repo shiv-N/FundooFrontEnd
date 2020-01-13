@@ -1,67 +1,77 @@
-import { makeStyles } from '@material-ui/core/styles';
 
-export const useStyles = makeStyles(theme => ({
+export const useStyles = theme => ({
     appBar:{
+        display:'flex',
+        position:'relative',
+        justifyContent: 'space-between',
         boxShadow:'none',
-        borderBottom:'1px solid lightgray'
+        borderBottom:'1px solid lightgray',
     },
     grow: {
         flexGrow: 1,
     },
     menuButton: {
-        marginRight: theme.spacing(2),
+        marginRight: '20px',
     },
     title: {
-        display: 'none',
-        [theme.breakpoints.up('sm')]: {
-            display: 'block',
-        },
+        display:'flex',
+       
     },
     search: {
-        position: 'relative',
-        borderRadius: theme.shape.borderRadius,
+        display: 'flex',
+        position: 'absolute',
         background: '#f1f3f4',
-        border: '1px solid transparent',
-        //backgroundColor: fade('theme.palette.common.white', 0.15),
-        // '&:hover': {
-        //     backgroundColor: fade(theme.palette.common.white, 0.25),
-        // },
-        marginRight: theme.spacing(2),
-        marginLeft: 0,
-        width: '100%',
-        [theme.breakpoints.up('sm')]: {
-            marginLeft: theme.spacing(3),
-            width: 'auto',
-        },
+        border: '1px solid red',
+        alignItems:'center',
+        marginRight: '1em',
+        marginLeft: '12em',
+        width: '30%',
         
     },
     searchIcon: {
-        width: theme.spacing(7),
+        width: '40px',
         height: '100%',
         position: 'absolute',
         pointerEvents: 'none',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'center'
     },
     inputRoot: {
         color: 'inherit',
     },
     inputInput: {
-        padding: theme.spacing(1, 1, 1, 7),
-        transition: theme.transitions.create('width'),
-        width: '100%',
-        [theme.breakpoints.up('md')]: {
-            width: 200,
-        }
+        padding: '10px 10px 10px 10px',
+        width: '200px',
 
     },
     list: {
-        width: 250,
+        width: 240,
     },
     drawer: {
         '& .MuiDrawer-paper': {
-            top: '4.01em'
+            top: '4.08em'
         }
-    }
-}));
+    },
+    root: {
+        padding: '1px 3px',
+        display: 'flex',
+        justifyself:'none',
+        marginRight: '14em',
+        marginLeft: '12em',
+        minWidth:'40%',
+        boxShadow:'0.1em 0.1em 0.4em 0em grey',
+       
+      },
+      input: {
+        marginLeft: theme.spacing(1),
+        flex: 1,
+      },
+      iconButton: {
+        padding: 10,
+      },
+      divider: {
+        height: 28,
+        margin: 4,
+      }
+});

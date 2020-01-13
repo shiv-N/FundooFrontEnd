@@ -64,6 +64,17 @@ export default class UserService{
         return axiosObj.GET("Notes/archive",tokenObject.tokenAuth)
     }
 
+    getAllTrashNotes(){
+        tokenObject.tokenAuth={
+            headers: {
+                            'Content-Type':'application/json',
+                            'Accept':'*',
+                             Authorization: 'Bearer '+localStorage.getItem('Token')
+                     }
+        }
+        return axiosObj.GET("Notes/trash",tokenObject.tokenAuth)
+    }
+
     ChangeColor(data,noteId){
         tokenObject.tokenAuth={
             headers: {
@@ -77,7 +88,7 @@ export default class UserService{
 
     Archive(noteId){
         console.log(noteId);
-        
+        var data={}
         tokenObject.tokenAuth={
             headers: {
                             'Content-Type':'application/json',
@@ -85,6 +96,6 @@ export default class UserService{
                              Authorization: 'Bearer '+localStorage.getItem('Token')
                      }
         }
-        return axiosObj.PUT("Notes/archive/"+noteId,tokenObject.tokenAuth)
+        return axiosObj.PUT("Notes/archive/"+noteId,data,tokenObject.tokenAuth)
     }
 }

@@ -5,6 +5,10 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import UserService from '../Service/UserService';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import IconButton from '@material-ui/core/IconButton';
 
 var loginObject = new UserService();
 
@@ -16,9 +20,9 @@ class Login extends Component {
             email:'',
             password:'',
             emailError:'',
-            passwordError:''
+            passwordError:'',
+            showPassword:''
         };
-        // this.login= this.login.bind(this)
     }
 login =(event) =>{
     event.preventDefault();
@@ -82,6 +86,10 @@ onChange=(e) =>{
     console.log(this.state);
     
 }
+
+handleClickShowPassword = () => {
+    this.setState(state => ({ showPassword: !state.showPassword }));
+  };
     render() {
         return (
             <div className="MainContainer" style={{ marginTop: "5%" }}>
@@ -120,11 +128,23 @@ onChange=(e) =>{
                     placeholder="Password"
                     margin="dense"
                     name='password'
-                    type='password'
+                    type={this.state.showPassword ? 'text' : 'password'}
                     fullWidth
                     // value = {this.state.password}
                     onChange={ this.onChange}
                     // onChange={(event=>this.change('password',event))}
+                    InputProps={{
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <IconButton
+                              aria-label="Toggle password visibility"
+                              onClick={this.handleClickShowPassword}
+                            >
+                              { !this.state.showPassword ? <VisibilityOff /> : <Visibility />}
+                            </IconButton>
+                          </InputAdornment>
+                        ),
+                      }}
                 />
                  <div style={{fontSize:12,color:'red'}}>
                     {this.state.passwordError}

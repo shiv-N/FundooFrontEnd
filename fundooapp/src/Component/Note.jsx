@@ -51,7 +51,7 @@ class Note extends Component {
         return (
 
             <div>
-                <Container style={{ marginTop: '6em' }}>
+                <Container style={{ marginTop: '2em' }}>
                     <div className="maincontainer">
                         <ClickAwayListener onClickAway={() => this.onChange(false)}>
                             <div className='takeNote' onClick={() => this.onChange(true)}>
