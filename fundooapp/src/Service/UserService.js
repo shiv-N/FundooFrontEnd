@@ -98,4 +98,16 @@ export default class UserService{
         }
         return axiosObj.PUT("Notes/archive/"+noteId,data,tokenObject.tokenAuth)
     }
+
+    AddReminder(data,noteId){
+        console.log(noteId);
+        tokenObject.tokenAuth={
+            headers: {
+                            'Content-Type':'application/json',
+                            'Accept':'*',
+                             Authorization: 'Bearer '+localStorage.getItem('Token')
+                     }
+        }
+        return axiosObj.PUT("Notes/Reminder/"+noteId,data,tokenObject.tokenAuth)
+    }
 }

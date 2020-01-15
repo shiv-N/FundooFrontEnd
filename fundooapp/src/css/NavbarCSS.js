@@ -17,34 +17,7 @@ export const useStyles = theme => ({
         display:'flex',
        
     },
-    search: {
-        display: 'flex',
-        position: 'absolute',
-        background: '#f1f3f4',
-        border: '1px solid red',
-        alignItems:'center',
-        marginRight: '1em',
-        marginLeft: '12em',
-        width: '30%',
-        
-    },
-    searchIcon: {
-        width: '40px',
-        height: '100%',
-        position: 'absolute',
-        pointerEvents: 'none',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    inputRoot: {
-        color: 'inherit',
-    },
-    inputInput: {
-        padding: '10px 10px 10px 10px',
-        width: '200px',
-
-    },
+   
     list: {
         width: 240,
     },
@@ -69,9 +42,5 @@ export const useStyles = theme => ({
       },
       iconButton: {
         padding: 10,
-      },
-      divider: {
-        height: 28,
-        margin: 4,
       }
 });

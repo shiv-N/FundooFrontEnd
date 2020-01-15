@@ -4,7 +4,6 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import AddAlertOutlinedIcon from '@material-ui/icons/AddAlertOutlined';
 import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
 import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
 import ArchiveOutlinedIcon from '@material-ui/icons/ArchiveOutlined';
@@ -14,6 +13,7 @@ import { withStyles } from '@material-ui/core/styles'
 import '../css/displayNote';
 import ChangeColor from './ChangeColor'
 import UserService from '../Service/UserService';
+import AddReminder from '../Component/AddReminder';
 
 var userService = new UserService();
 
@@ -53,9 +53,10 @@ class DisplayNote extends Component {
           </Typography>
         </CardContent>
         <CardActions className={classes.icon} disableSpacing>
-          <IconButton aria-label="reminder" className={classes.iconButton} >
-            <AddAlertOutlinedIcon fontSize="small" />
-          </IconButton>
+          <>
+          <AddReminder noteId={this.props.noteData.id} handleGetNotes={this.props.handleGetNotes}/>
+          </>
+         
 
           <IconButton aria-label="collaboration" className={classes.iconButton}>
             <PersonAddOutlinedIcon fontSize="small" />
