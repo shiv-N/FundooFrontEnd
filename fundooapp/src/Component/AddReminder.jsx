@@ -7,6 +7,7 @@ import 'date-fns';
 import DateTimePicker from 'react-datetime-picker';
 import { ClickAwayListener } from '@material-ui/core';
 import UserService from '../Service/UserService';
+import TextField from '@material-ui/core/TextField';
 
 var userService = new UserService();
 
@@ -31,6 +32,19 @@ const styles = {
     padding: '0.5%',
     flexWrap: 'wrap',
     '&:hover': {}
+  },
+  container: {
+    display: 'flex',
+    flexDirection:'column',
+    flexWrap: 'wrap',
+    width:200,
+    backgroundColor:'blue',
+    padding:'1em'
+  },
+  textField: {
+    marginLeft: '10px',
+    marginRight: '10px',
+    width: 150, 
   },
 
 };
@@ -89,9 +103,36 @@ class AddReminder extends React.Component {
         {this.state.anchorEl !== null ?
           <ClickAwayListener onClickAway={() => this.handleClose}>
             <Popper className={classes.paper} open={open} anchorEl={anchorEl}>
-              <DateTimePicker
+              {/* <DateTimePicker
                 onChange={this.onChange}
-                value={this.state.date} />
+                value={this.state.date} /> */}
+
+<form className={classes.container} noValidate>
+      <TextField
+        id="date"
+        label="Birthday"
+        type="date"
+        defaultValue="2017-05-24"
+        className={classes.textField}
+        InputLabelProps={{
+          shrink: true,
+        }}
+      />
+      <TextField
+        id="time"
+        label="Alarm clock"
+        type="time"
+        defaultValue="07:30"
+        className={classes.textField}
+        InputLabelProps={{
+          shrink: true,
+        }}
+        inputProps={{
+          step: 300, // 5 min
+        }}
+      />
+    </form>
+
             </Popper>
           </ClickAwayListener>
           : null}
