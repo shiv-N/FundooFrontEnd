@@ -57,7 +57,10 @@ class AddReminder extends React.Component {
   }
 
   handlePopoverOpen = event => {
+    // event.stopPropagation();
+    // event.nativeEvent.stopImmediatePropagation()
     if (this.state.anchorEl === null) {
+      
       this.setState({ anchorEl: event.currentTarget });
     }
     else {
@@ -88,7 +91,7 @@ class AddReminder extends React.Component {
           <AddAlertOutlinedIcon fontSize="small" />
         </IconButton>
         {this.state.anchorEl !== null ?
-            <Popper className={classes.paper} style={{zIndex:1300,opacity:1}}open={open} anchorEl={anchorEl}>
+            <Popper className={classes.paper} style={{zIndex:1300}}open={open} anchorEl={anchorEl}>
 
               <form className={classes.container} noValidate>
                 <Typography>
@@ -110,6 +113,7 @@ class AddReminder extends React.Component {
                   type="time"
                   label='time'
                   defaultValue="07:30"
+                  autoFocus={true}
                   className={classes.textField}
                   InputLabelProps={{
                     shrink: true,

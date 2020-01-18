@@ -20,6 +20,7 @@ import RestoreFromTrashOutlinedIcon from '@material-ui/icons/RestoreFromTrashOut
 import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined';
 import EditNote from './EditNote'
 import MoreMenu from './MoreMenu'
+import MaterialUIPickers from './MaterialUIPickers'
 
 var userService = new UserService();
 
@@ -87,6 +88,8 @@ class DisplayNote extends Component {
     const { classes } = this.props;
     return (
       <div>
+        {
+            !this.state.click?
       <Card id={this.props.noteData.id} className={classes.card} style={{ backgroundColor: this.props.noteData.color }} >
 
         <CardContent onClick={this.handleEditNote}>
@@ -112,7 +115,7 @@ class DisplayNote extends Component {
           <>
             <AddReminder noteId={this.props.noteData.id} handleReminder={this.handleReminder} />
           </>
-
+          {/* <MaterialUIPickers/> */}
 
           <IconButton aria-label="collaboration" className={classes.iconButton}>
             <PersonAddOutlinedIcon fontSize="small" />
@@ -147,8 +150,7 @@ class DisplayNote extends Component {
         </IconButton>
       </CardActions>}
       </Card>
-          {
-            this.state.click?<EditNote handleGetNotes={this.props.handleGetNotes} handleEditNoteResponce={this.handleEditNoteResponce} noteData={this.props.noteData}/>:null
+          :<EditNote handleGetNotes={this.props.handleGetNotes} handleEditNoteResponce={this.handleEditNoteResponce} noteData={this.props.noteData}/>
           }
       </div>
     )

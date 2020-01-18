@@ -23,6 +23,7 @@ import InputBase from '@material-ui/core/InputBase';
 import UserService from '../Service/UserService';
 import RestoreFromTrashOutlinedIcon from '@material-ui/icons/RestoreFromTrashOutlined';
 import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined';
+import DialogActions from '@material-ui/core/DialogActions';
 
 var userService = new UserService();
 
@@ -30,10 +31,32 @@ class EditNote extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      title: '',
+      noteDescription: '',
+      Reminder: null,
       open: true,
     }
   }
 
+  // handleReminder = (dataFromChild) => {
+  //   this.setState({
+  //     addReminder: dataFromChild
+  //   })
+  // }
+  handleReminder = (value, noteId) => {
+    var reminderData = {
+      Reminder: value
+    }
+
+    console.log(this.props.noteId);
+    userService.AddReminder(reminderData, noteId).then(
+      response => {
+        console.log(response);
+
+        this.props.handleGetNotes();
+      }
+    )
+  }
   handleClick(noteId) {
     userService.Archive(noteId).then(
       response => {
@@ -66,10 +89,48 @@ class EditNote extends React.Component {
     await this.setState({ open: false });
     console.log(this.state.open);
 
+    ///////////
+    let noteData = {
+      Title: this.state.title,
+      Message: this.state.noteDescription,
+      Reminder: this.state.addReminder,
+    }
+    if(noteData.Title !== '' || noteData.Message !== '')
+    {
+      await userService.EditNote(noteData,this.props.noteData.id).then(
+
+        response => {
+          console.log('this is Note response from backend:', response);
+  
+          this.setState(
+            {
+              title: '',
+            noteDescription: '',
+            addReminder: null,
+            }
+          )
+          this.props.handleGetNotes();
+        }
+      )
+    }
+    else{
+      this.props.handleGetNotes();
+    }
+    ///////
     this.props.handleEditNoteResponce(this.state.open);
   };
-
+  onChange=(e) =>{
+    this.setState(
+        {
+            [e.target.name]: e.target.value
+        }
+    )
+    // console.log(e.target.value);
+    
+}
   render() {
+    console.log('title==>',this.state.title);
+    
     const theme = createMuiTheme({
       overrides: {
         MuiDialog:{paperWidthSm : {
@@ -88,21 +149,22 @@ class EditNote extends React.Component {
         {/* <Card id={this.props.noteData.id} className={classes.Edit} style={{ backgroundColor: this.props.noteData.color }} > */}
 
         <CardContent onClick={this.handleEditNote}>
-          <Typography>
-            {this.props.noteData.title}
-          </Typography>
-          
-          <InputBase
-        // className={classes.margin}
-        style={{ wordBreak: 'break-all', marginTop: '2%',width:'100%',maxWidth:'100%'}}
-        defaultValue={this.props.noteData.message}
-        inputProps={{ 'aria-label': 'naked' }}
+        <InputBase
+        style={{ wordBreak: 'break-all',width:'100%',maxWidth:'100%'}}
+        defaultValue={this.props.noteData.title}
         multiline
+        name='title'
+        onChange={ this.onChange}
+        />
+          
+        <InputBase
+        style={{ wordBreak: 'break-all', marginTop: '0.2em',width:'100%',maxWidth:'100%'}}
+        defaultValue={this.props.noteData.message}
+        multiline
+        name='noteDescription'
+        onChange={ this.onChange}
         />
 
-          {/* <Typography style={{ wordBreak: 'break-all', marginTop: '2%' }}>
-            {this.props.noteData.message}
-          </Typography> */}
         </CardContent>
         {this.props.noteData.addReminder !== null ?
           <Chip style={{ marginLeft:'1em',width: "30%" }}
@@ -115,7 +177,7 @@ class EditNote extends React.Component {
           /> : null}
 
         {!this.props.noteData.isTrash ?
-          <CardActions className={classes.root2} disableSpacing>
+          <DialogActions className={classes.root2} disableSpacing>
             <>
               <AddReminder noteId={this.props.noteData.id} handleReminder={this.handleReminder} />
             </>
@@ -139,10 +201,12 @@ class EditNote extends React.Component {
             <>
               <MoreMenu noteId={this.props.noteData.id} handleGetNotes={this.props.handleGetNotes} />
             </>
-            <Button variant="contained" onClick={this.handleClose} style={{ backgroundColor: 'white', color: 'rgba(0,0,0,0.87)', textTransform: 'capitalize', marginLeft: '26%' }} disableElevation>
+            <Button onClick={this.handleClose} style={{ backgroundColor: this.props.noteData.color, color: 'rgba(0,0,0,0.87)', textTransform: 'capitalize', marginInlineStart: "12%",
+    marginInlineEnd: "7%",
+    marginBottom: "1%" }} disableElevation>
               close
             </Button>
-          </CardActions>
+          </DialogActions>
           : <CardActions style={{ display: 'flex',flexDirection: 'row'}} disableSpacing>
           <IconButton aria-label="delete" className={classes.iconButton} onClick={() => this.handleDeleteClick(this.props.noteData.id)}>
             <DeleteForeverOutlinedIcon fontSize="small" />
