@@ -10,15 +10,34 @@ export const useStyles = theme => ({
         boxShadow:'0.1em 0.1em 0.4em 0em grey',   
         marginRight:'1em',
         marginBottom:'1em',
-        height:'fit-content'
-      
+        height:'fit-content',
+        borderRadius: "7px"
     },
+    Edit: {
+      padding: '2px 0px',
+      display: 'flex',
+      flexDirection: 'column',
+      width: 500,
+      maxWidth: 500,
+      boxShadow:'0.1em 0.1em 0.4em 0em grey',
+      height:'fit-content',
+      borderRadius: "27px"
+  },
     icon: {
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'space-between'
     },
-
+    root2: {
+      padding: '2px 4px',
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      width: 480,
+      maxWidth: 480,
+      border:'none',
+      boxShadow:'none',
+    },
     iconButton: {
       width:'28px',
       height:'28px',

@@ -4,14 +4,8 @@ import Popper from '@material-ui/core/Popper';
 import AddAlertOutlinedIcon from '@material-ui/icons/AddAlertOutlined';
 import IconButton from '@material-ui/core/IconButton';
 import 'date-fns';
-import DateTimePicker from 'react-datetime-picker';
-import { ClickAwayListener } from '@material-ui/core';
-import UserService from '../Service/UserService';
 import TextField from '@material-ui/core/TextField';
-
-var userService = new UserService();
-
-
+import Typography from '@material-ui/core/Typography';
 
 const styles = {
   grid: {
@@ -23,7 +17,7 @@ const styles = {
     padding: 5
   },
   paper: {
-    width: '245px',
+    width: '210px',
     maxWidth: '245px',
     minWidth: '125px',
     backgroundColor: 'white',
@@ -37,16 +31,15 @@ const styles = {
   },
   container: {
     display: 'flex',
-    flexDirection:'column',
+    flexDirection: 'column',
     flexWrap: 'wrap',
-    width:200,
-    backgroundColor:'blue',
-    padding:'1em'
+    width: 200,
+    padding: '1em'
   },
   textField: {
     marginLeft: '10px',
     marginRight: '10px',
-    width: 150, 
+    width: 150,
   },
 
 };
@@ -56,9 +49,11 @@ class AddReminder extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      date: new Date(),
+      date: null,
+      time: null,
       anchorEl: null,
     }
+    this.handleClose = this.handleClose.bind(this);
   }
 
   handlePopoverOpen = event => {
@@ -73,25 +68,15 @@ class AddReminder extends React.Component {
 
   async handleClose() {
     await this.setState({ anchorEl: null });
-    var currentDate = new Date()
-    // sending to back end
-    if(this.state.date !== currentDate){
-    var reminderData = {
-      Reminder: this.state.date
-    }
-    console.log(this.props.noteId);
 
-    userService.AddReminder(reminderData, this.props.noteId).then(
-      response => {
-        console.log(response);
-        
-        this.props.handleGetNotes();
-      }
-    )
+    if(this.state.date !== null && this.state.time !==null){
+      this.props.handleReminder(this.state.date + " " + this.state.time,this.props.noteId)
     }
+    
   }
-  onChange = date => { this.setState({ date }) }
-
+  onDateChange = (event) => { this.setState({ date: event.target.value }) }
+  onTimeChange = (event) => { this.setState({ time: event.target.value }) }
+  
   render() {
 
     const { classes } = this.props;
@@ -103,40 +88,40 @@ class AddReminder extends React.Component {
           <AddAlertOutlinedIcon fontSize="small" />
         </IconButton>
         {this.state.anchorEl !== null ?
-          <ClickAwayListener onClickAway={() => this.handleClose}>
-            <Popper className={classes.paper} open={open} anchorEl={anchorEl}>
-              {/* <DateTimePicker
-                onChange={this.onChange}
-                value={this.state.date} /> */}
+            <Popper className={classes.paper} style={{zIndex:1300,opacity:1}}open={open} anchorEl={anchorEl}>
 
-<form className={classes.container} noValidate>
-      <TextField
-        id="date"
-        label="Birthday"
-        type="date"
-        defaultValue="2017-05-24"
-        className={classes.textField}
-        InputLabelProps={{
-          shrink: true,
-        }}
-      />
-      <TextField
-        id="time"
-        label="Alarm clock"
-        type="time"
-        defaultValue="07:30"
-        className={classes.textField}
-        InputLabelProps={{
-          shrink: true,
-        }}
-        inputProps={{
-          step: 300, // 5 min
-        }}
-      />
-    </form>
+              <form className={classes.container} noValidate>
+                <Typography>
+                  Pick Date & Time
+        </Typography><br></br>
+                <TextField
+                  id="date"
+                  type="date"
+                  label='date'
+                  defaultValue="2020-01-15"
+                  onChange={this.onDateChange}
+                  className={classes.textField}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+                <TextField
+                  id="time"
+                  type="time"
+                  label='time'
+                  defaultValue="07:30"
+                  className={classes.textField}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  inputProps={{
+                    step: 300, // 5 min
+                  }}
+                  onChange={this.onTimeChange}
+                />
+              </form>
 
             </Popper>
-          </ClickAwayListener>
           : null}
       </div>
     );

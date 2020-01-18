@@ -2,7 +2,6 @@
 export const useStyles = theme => ({
     appBar:{
         display:'flex',
-        position:'relative',
         justifyContent: 'space-between',
         boxShadow:'none',
         borderBottom:'1px solid lightgray',

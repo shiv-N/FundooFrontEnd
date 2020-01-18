@@ -83,10 +83,10 @@ class ChangeColor extends Component {
                     <ColorLensOutlinedIcon fontSize="small" />
                 {this.state.anchorEl !== null ?
                 <ClickAwayListener onClickAway={() => this.setState({anchorEl:null})}>
-                <Popper id={this.props.noteId} open={open} anchorEl={anchorEl}
+                <Popper id={this.props.noteId}  open={open} anchorEl={anchorEl}
                     // anchorOrigin = {{ horizontal: 'right', vertical: 'top' }}
                     // targetOrigin = {{ horizontal: "middle", vertical: "bottom" }}
-                    className={classes.paper}   disableRestoreFocus>
+                    className={classes.paper} style={{zIndex:1300,opacity:1}}  disableRestoreFocus >
 
                     {["#0000","#f28b82","#fbbc04","#fff475","#ccff90",
                     "#cbf0f8","#3e5fc1","#a7ffeb","#aecbfa","#d7aefb","#e6c9a8","#e8eaed"].map((text,index)=>( 

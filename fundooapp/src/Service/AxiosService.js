@@ -18,8 +18,8 @@ export default class AxiosService {
         return axios.put(Baseurl+path,data,tokenAuth);
      }
 
-     DELETE(path,data,tokenAuth){
-        console.log('axiosService data of delete:',data,tokenAuth);
-        return axios.delete(Baseurl+path,data,tokenAuth);
+     DELETE(path,tokenAuth){
+        console.log('axiosService data of delete:',path,tokenAuth);
+        return axios.delete(Baseurl+path,tokenAuth);
      }
 }

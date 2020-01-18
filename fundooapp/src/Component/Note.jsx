@@ -18,6 +18,7 @@ class Note extends Component {
         this.state = {
             view: false,
             getAllUserNotes: []
+            
         }
     }
 
@@ -43,27 +44,35 @@ class Note extends Component {
         )
 
     }
+    onClose=(value)=>{
+        console.log('im in on close');
+        
+        this.setState(
+            {
+                view: value
+            }
+        )
+    }
     render() {
-       
-        // console.log(this.props,this.state);
         
         
-        return (
+        return ( 
 
             <div>
-                <Container style={{ marginTop: '2em' }}>
+                <Container style={{ marginTop: '6em' }}>
                     <div className="maincontainer">
-                        <ClickAwayListener onClickAway={() => this.onChange(false)}>
+                        {/* <ClickAwayListener onClickAway={() => this.onChange(false)}> */}
                             <div className='takeNote' onClick={() => this.onChange(true)}>
-                                {!this.state.view ? <TakeNotes /> : <CustomizedInputBase handleGetNotes={this.handleGetNotes} />}
+                                {!this.state.view ? <TakeNotes /> : <CustomizedInputBase handleGetNotes={this.handleGetNotes} change={this.onClose}/>}
                             </div>
-                        </ClickAwayListener>
+                        {/* </ClickAwayListener> */}
                     </div>
 
                     <div className="noteContainer">
                         {
                             this.state.getAllUserNotes !== null &&
                             (this.state.getAllUserNotes).map((value,index) => (
+                            
                                 <DisplayNote noteData={value} key={index} handleGetNotes={this.handleGetNotes}/>
                             ))
                         }

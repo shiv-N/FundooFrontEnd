@@ -99,6 +99,31 @@ export default class UserService{
         return axiosObj.PUT("Notes/archive/"+noteId,data,tokenObject.tokenAuth)
     }
 
+    TrashNote(noteId){
+        console.log(noteId);
+        var data={}
+        tokenObject.tokenAuth={
+            headers: {
+                            'Content-Type':'application/json',
+                            'Accept':'*',
+                             Authorization: 'Bearer '+localStorage.getItem('Token')
+                     }
+        }
+        return axiosObj.PUT("Notes/Trash/"+noteId,data,tokenObject.tokenAuth)
+    }
+
+    DeleteNote(noteId){
+        console.log(noteId);
+        tokenObject.tokenAuth={
+            headers: {
+                            'Content-Type':'application/json',
+                            'Accept':'*',
+                             Authorization: 'Bearer '+localStorage.getItem('Token')
+                     }
+        }
+        return axiosObj.DELETE("Notes/"+noteId,tokenObject.tokenAuth)
+    }
+
     AddReminder(data,noteId){
         console.log(noteId);
         tokenObject.tokenAuth={
