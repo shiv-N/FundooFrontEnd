@@ -53,8 +53,24 @@ class Note extends Component {
             }
         )
     }
+    DisplayPinNotes=(value,index)=> {
+        return(
+            <div key={index}>   
+                {value.isPin?<DisplayNote noteData={value} key={index} handleGetNotes={this.handleGetNotes}/>:null}
+            </div>
+         ) }
+
+    DisplayUnPinNotes=(value,index)=> {
+        return(
+            <div>
+                {!value.isPin?<DisplayNote noteData={value} key={index} handleGetNotes={this.handleGetNotes}/>:null}
+            </div>
+        ) }
     render() {
         
+        let pin = this.state.getAllUserNotes.filter(function (data) {
+            return data.isPin === true;
+        })
         
         return ( 
 
@@ -67,13 +83,31 @@ class Note extends Component {
                             </div>
                         {/* </ClickAwayListener> */}
                     </div>
-
-                    <div className="noteContainer">
+                    {   pin.length !==0?
+                        <div style={{ marginLeft: "18em",marginTop:"3em"}}>
+                        Pinned
+                        </div>:null
+                    }
+                    
+                    <div className="noteContainer" style={{marginTop:"1em"}}>
+                    
                         {
                             this.state.getAllUserNotes !== null &&
                             (this.state.getAllUserNotes).map((value,index) => (
-                            
-                                <DisplayNote noteData={value} key={index} handleGetNotes={this.handleGetNotes}/>
+                                this.DisplayPinNotes(value,index)
+                            ))
+                        }
+                        
+                    </div>
+                    {   pin.length !==0?
+                    <div style={{ marginLeft: "18em",marginTop:"2em"}}>
+                    Others
+                    </div>:null}
+                    <div className="noteContainer" style={{marginTop:"1em"}}>
+                        {
+                            this.state.getAllUserNotes !== null &&
+                            (this.state.getAllUserNotes).map((value,index) => (
+                                 this.DisplayUnPinNotes(value,index)
                             ))
                         }
                     </div>

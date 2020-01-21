@@ -3,12 +3,9 @@ import { Component } from 'react';
 import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
-import DirectionsIcon from '@material-ui/icons/Directions';
 import { useStyles } from '../css/CustomizedInputBaseCSS'
 import { withStyles } from '@material-ui/core/styles'
-import AddReminder from '../Component/AddReminder';
 import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
-import ColorLensOutlinedIcon from '@material-ui/icons/ColorLensOutlined';
 import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
 import ArchiveOutlinedIcon from '@material-ui/icons/ArchiveOutlined';
 import MoreVertOutlinedIcon from '@material-ui/icons/MoreVertOutlined';
@@ -17,6 +14,10 @@ import UserService from '../Service/UserService';
 import Chip from '@material-ui/core/Chip';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import Moment from 'react-moment';
+import unpin from '../logo/unpin.svg'
+import pin from '../logo/pin.svg'
+import ChangeColor from './ChangeColor';
+import MaterialUIPickers from './MaterialUIPickers'
 
 var userService = new UserService();
 
@@ -24,7 +25,7 @@ const defaultState={
   title: '',
       noteDescription: '',
       image: '',
-      color: '',
+      color: null,
       isPin: false,
       addReminder: null,
       isArchive: false,
@@ -63,7 +64,7 @@ class CustomizedInputBase extends Component {
               title: '',
             noteDescription: '',
             image: '',
-            color: '',
+            color: null,
             isPin: false,
             addReminder: null,
             isArchive: false,
@@ -80,6 +81,11 @@ class CustomizedInputBase extends Component {
     }   
   }
 
+  handlePin=()=>{
+    this.setState({
+      isPin: !this.state.isPin
+    })
+  }
   onChange = (e) => {
     this.setState(
       {
@@ -93,15 +99,19 @@ class CustomizedInputBase extends Component {
       addReminder: dataFromChild
     })
   }
-
+  handleColor=(dataFromChild)=>{
+    this.setState({
+      color: dataFromChild
+    })
+  }
   render() {
 
     const { classes } = this.props;
 
     return (
-      <Paper className={classes.root}>
+      <Paper className={classes.root} style={{ backgroundColor: this.state.color }}>
 
-        <Paper component="form" className={classes.root2}
+        <Paper component="form" className={classes.root2} style={{ backgroundColor: this.state.color }}
         >
 
           <InputBase
@@ -112,11 +122,15 @@ class CustomizedInputBase extends Component {
             onChange={this.onChange}
           />
 
-          <IconButton className='iconButton'>
-            <DirectionsIcon />
+          <IconButton className='iconButton' onClick={this.handlePin}>
+            {/* <DirectionsIcon /> */}
+            {!this.state.isPin?
+              <img src={unpin}/>:<img src={pin}/>
+            }
+            
           </IconButton>
         </Paper>
-         <Paper className={classes.root2} style={{display: 'flex',flexDirection: 'column',}}>
+         <Paper className={classes.root2} style={{display: 'flex',flexDirection: 'column',backgroundColor: this.state.color}}>
           <InputBase
             className='classes.input'
             placeholder="Take a note..."
@@ -130,24 +144,26 @@ class CustomizedInputBase extends Component {
             variant="outlined"
             size="small"
             icon={<AccessTimeIcon />}
-            label={<Moment format="DD-MM-YYYY HH:mm">{this.state.addReminder}</Moment>}
+            label={<Moment format="MMMM Do, h:mm a">{this.state.addReminder}</Moment>}
           // onClick={handleClick}
           // onDelete={handleDelete}
           /> : null}
         </Paper> 
-        <Paper component="form" className={classes.root2}>
+        <Paper component="form" className={classes.root2} style={{ backgroundColor: this.state.color }}>
           <div>
-            <AddReminder handleReminder={this.handleReminder} />
+            <MaterialUIPickers handleReminder={this.handleReminder} />
           </div>
 
           <IconButton className='iconButton' aria-label="collaboration">
             <PersonAddOutlinedIcon />
           </IconButton>
 
-          <IconButton className='iconButton' aria-label="colour">
+          {/* <IconButton className='iconButton' aria-label="colour">
             <ColorLensOutlinedIcon />
-          </IconButton>
-
+          </IconButton> */}
+          <>
+              <ChangeColor colorCode={this.state.color} color={this.handleColor} handleGetNotes={this.props.handleGetNotes} />
+          </>
           <IconButton className='iconButton' aria-label="Image">
             <ImageOutlinedIcon />
           </IconButton>
@@ -159,7 +175,7 @@ class CustomizedInputBase extends Component {
           <IconButton className='iconButton' aria-label="moreMenu">
             <MoreVertOutlinedIcon />
           </IconButton>
-          <Button variant="contained" onClick={this.AddNote} style={{ backgroundColor: 'white', color: 'rgba(0,0,0,0.87)', textTransform: 'capitalize', marginLeft: '26%'}} disableElevation>
+          <Button variant="contained" onClick={this.AddNote} style={{ backgroundColor: this.state.color, color: 'rgba(0,0,0,0.87)', textTransform: 'capitalize', marginLeft: '26%'}} disableElevation>
             close
                     </Button>
         </Paper>

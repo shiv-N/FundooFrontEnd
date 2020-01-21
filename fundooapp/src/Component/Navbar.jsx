@@ -13,6 +13,9 @@ import { useStyles } from '../css/NavbarCSS'
 import { withStyles } from '@material-ui/core/styles'
 import { Component } from 'react';
 import Searchbar from './SearchBar';
+import { connect } from 'react-redux';
+import {ViewGrid,ViewList} from '../Redux/ToggleAction'
+import Tooltip from '@material-ui/core/Tooltip';
 
 class Navbar extends Component {
 
@@ -26,6 +29,8 @@ class Navbar extends Component {
 
   render() {
     const { classes } = this.props;
+    console.log('==>',this.props.toggleView);
+    
     return (
       <div className={classes.grow}>
         <AppBar className={classes.appBar} position="fixed" color="inherit">
@@ -36,14 +41,20 @@ class Navbar extends Component {
               Fundoo
           </Typography>
           </div>
-           
+          
             <Searchbar/>
+
+          <Tooltip title="Refresh">
             <IconButton >
               <RefreshOutlinedIcon />
             </IconButton>
+            </Tooltip>
 
-            <IconButton onClick={() => this.setState({view:!this.state.view})}>
-              {this.state.view ? <DashboardOutlinedIcon /> : <ViewAgendaOutlinedIcon />}
+            {/* <IconButton onClick={() => this.setState({view:!this.state.view})}> */}
+            <IconButton onClick={this.props.toggleView?this.props.ViewGrids:this.props.ViewLists}>
+              {this.props.toggleView ? 
+              <Tooltip title="Grid View"><DashboardOutlinedIcon /></Tooltip>:
+              <Tooltip title="List View"><ViewAgendaOutlinedIcon /></Tooltip> }
             </IconButton>
 
             <IconButton>
@@ -61,4 +72,17 @@ class Navbar extends Component {
     );
   }
 }
-export default (withStyles)(useStyles)(Navbar);
+
+const mapToStateProps = state =>{
+  return{
+      toggleView : state.toggleView
+  }
+}
+const mapDispatchToProps= dispatch =>{
+  return{
+      ViewLists:()=>dispatch(ViewList()),
+      ViewGrids:()=>dispatch(ViewGrid())
+  }
+}
+
+export default connect(mapToStateProps,mapDispatchToProps)((withStyles)(useStyles)(Navbar));

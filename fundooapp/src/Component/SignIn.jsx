@@ -39,6 +39,7 @@ login =(event) =>{
             var token= response.data.data.token;
             console.log('Backend recevied token:',token);
             localStorage.setItem('Token',token)
+            localStorage.setItem('UserEmail',this.state.email)
             this.props.history.push('/dashboard/note');
            
         })

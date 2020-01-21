@@ -11,11 +11,13 @@ import Reminder from './Component/Reminder';
 import Trash from './Component/Trash';
 import Label from './Component/Label';
 import Archive from './Component/ArchiveDisplay';
+import {Provider} from 'react-redux'
+import store from '../src/Redux/Store'
 
 function App() {
   return (
-    <BrowserRouter>
-      
+    <Provider store={store}>
+    <BrowserRouter> 
         <Route path = "/" exact component = {SignIn} />
         <Route path = "/register" component = {Registration} />
         <Route path = "/forget" component = { ForgetPassword } />
@@ -27,6 +29,7 @@ function App() {
         <Route path = "/dashboard/trash" component = { Trash } />
         <Route path = "/dashboard/label" component = { Label } />
      </BrowserRouter>
+     </Provider>
   );
 }
 

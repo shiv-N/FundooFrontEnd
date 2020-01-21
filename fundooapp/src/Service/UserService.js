@@ -124,6 +124,19 @@ export default class UserService{
         return axiosObj.DELETE("Notes/"+noteId,tokenObject.tokenAuth)
     }
 
+    PinNote(noteId){
+        console.log(noteId);
+        var data={}
+        tokenObject.tokenAuth={
+            headers: {
+                            'Content-Type':'application/json',
+                            'Accept':'*',
+                             Authorization: 'Bearer '+localStorage.getItem('Token')
+                     }
+        }
+        return axiosObj.PUT("Notes/Pin/"+noteId,data,tokenObject.tokenAuth)
+    }
+
     AddReminder(data,noteId){
         console.log(noteId);
         tokenObject.tokenAuth={

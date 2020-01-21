@@ -6,6 +6,7 @@ import IconButton from '@material-ui/core/IconButton';
 import 'date-fns';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const styles = {
   grid: {
@@ -77,8 +78,9 @@ class AddReminder extends React.Component {
     }
     
   }
-  onDateChange = (event) => { this.setState({ date: event.target.value }) }
-  onTimeChange = (event) => { this.setState({ time: event.target.value }) }
+  onDateChange = (event) => { console.log("add remindere innnnn",event.target);
+   this.setState({ date: event.target.value }) }
+  onTimeChange = (event) =>{ console.log("add remindere innnnn",event.target);  this.setState({ time: event.target.value }) }
   
   render() {
 
@@ -87,9 +89,11 @@ class AddReminder extends React.Component {
     const open = Boolean(anchorEl);
     return (
       <div>
+        <Tooltip title="Remind me">
         <IconButton aria-label="reminder" onClick={this.handlePopoverOpen} className={classes.iconButton} >
           <AddAlertOutlinedIcon fontSize="small" />
         </IconButton>
+        </Tooltip>
         {this.state.anchorEl !== null ?
             <Popper className={classes.paper} style={{zIndex:1300}}open={open} anchorEl={anchorEl}>
 
@@ -102,7 +106,7 @@ class AddReminder extends React.Component {
                   type="date"
                   label='date'
                   defaultValue="2020-01-15"
-                  onChange={this.onDateChange}
+                  onChange={  this.onDateChange}
                   className={classes.textField}
                   InputLabelProps={{
                     shrink: true,
@@ -121,7 +125,7 @@ class AddReminder extends React.Component {
                   inputProps={{
                     step: 300, // 5 min
                   }}
-                  onChange={this.onTimeChange}
+                  onChange={  this.onTimeChange}
                 />
               </form>
 
@@ -133,4 +137,4 @@ class AddReminder extends React.Component {
 }
 
 
-export default withStyles(styles)(AddReminder);
+export default (withStyles)(styles)(AddReminder);

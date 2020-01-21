@@ -45,7 +45,7 @@ class Reminder extends Component{
     render(){
         return(
             
-            <Container style={{marginTop: '2em'}}>
+            <Container style={{marginTop: '6em'}}>
             <div className="maincontainer">
             <ClickAwayListener onClickAway={()=>this.onChange(false)}>
             <div className='takeNote' onClick={()=>this.onChange(true)}>

@@ -5,7 +5,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import { useStyles } from '../css/NavbarCSS'
 import { withStyles } from '@material-ui/core/styles'
 import { Component } from 'react';
-
+import Tooltip from '@material-ui/core/Tooltip';
 
 class CustomizedInputBase extends Component {
 
@@ -14,9 +14,11 @@ class CustomizedInputBase extends Component {
 
   return (
     <div className={classes.root}>
-      <IconButton className={classes.iconButton} aria-label="menu">
+      <Tooltip title="Search">
+      <IconButton className={classes.iconButton}>
       <SearchIcon />
       </IconButton>
+      </Tooltip>
       <InputBase
         className={classes.input}
         placeholder="Search..."

@@ -13,6 +13,17 @@ export const useStyles = theme => ({
         height:'fit-content',
         borderRadius: "7px"
     },
+    ListView: {
+      padding: '2px 0px',
+      display: 'flex',
+      flexDirection: 'column',
+      width: 600,
+      maxWidth: 650,
+      boxShadow:'0.1em 0.1em 0.4em 0em grey',   
+      marginBottom:'2em',
+      height:'fit-content',
+      borderRadius: "7px"
+  },
     Edit: {
       padding: '2px 0px',
       display: 'flex',
@@ -23,10 +34,24 @@ export const useStyles = theme => ({
       height:'fit-content',
       borderRadius: "27px"
   },
+    GridReminder:{
+      marginLeft: '1em',
+      width: "75%"
+    },
+    ListReminder:{
+      marginLeft: '1em',
+      width: "30%"
+    },
     icon: {
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'space-between'
+    },
+    ListIcon: {
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+      width:'50%'
     },
     root2: {
       padding: '2px 4px',

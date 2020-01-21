@@ -8,6 +8,7 @@ import MoreVertOutlinedIcon from '@material-ui/icons/MoreVertOutlined';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import UserService from '../Service/UserService';
+import Tooltip from '@material-ui/core/Tooltip';
 
 var userService = new UserService();
 
@@ -90,10 +91,11 @@ class MoreMenu extends React.Component {
     const open = Boolean(anchorEl);
     return (
       <div>
+        <Tooltip title="More">
         <IconButton aria-label="moreMenu" onClick={this.handlePopoverOpen} className={classes.iconButton}>
             <MoreVertOutlinedIcon fontSize="small" />
           </IconButton>
-
+          </Tooltip>
         {this.state.anchorEl !== null ?
           <ClickAwayListener onClickAway={this.handleClose}>
             <Popper className={classes.paper} open={open} anchorEl={anchorEl}>
@@ -114,35 +116,6 @@ class MoreMenu extends React.Component {
                     </ListItem>
                
                 </List>
-
-              {/* <form className={classes.container} noValidate>
-                    <Typography style={{fontWeight: "normal",marginTop:'0.3em'}} onClick={this.handleTrash} >
-                        Delete note
-                    </Typography>
-                    <Typography style={{fontWeight: "normal",marginTop:'0.3em'}}>
-                        Add label
-                    </Typography>
-              
-            
-                    <Typography style={{fontWeight: "normal",marginTop:'0.3em'}}>
-                        Add drawing
-                    </Typography>
-              
-            
-                    <Typography style={{fontWeight: "normal",marginTop:'0.3em'}}>
-                        Make a copy
-                    </Typography>
-              
-            
-                    <Typography style={{fontWeight: "normal",marginTop:'0.3em'}}>
-                        Show checkboxes
-                    </Typography>
-
-                    <Typography style={{fontWeight: "normal",marginTop:'0.3em'}}>
-                        Copy to google docs
-                    </Typography>
-              
-              </form> */}
 
             </Popper>
           </ClickAwayListener>

@@ -4,9 +4,7 @@ import Dialog from '@material-ui/core/Dialog';
 import Chip from '@material-ui/core/Chip';
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import Moment from 'react-moment';
-import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
 import { useStyles } from '../css/displayNote'
 import { withStyles } from '@material-ui/core/styles'
 import '../css/displayNote';
@@ -14,7 +12,6 @@ import CardActions from '@material-ui/core/CardActions';
 import IconButton from '@material-ui/core/IconButton';
 import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
 import ChangeColor from './ChangeColor';
-import AddReminder from '../Component/AddReminder';
 import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
 import ArchiveOutlinedIcon from '@material-ui/icons/ArchiveOutlined';
 import MoreMenu from './MoreMenu'
@@ -24,6 +21,7 @@ import UserService from '../Service/UserService';
 import RestoreFromTrashOutlinedIcon from '@material-ui/icons/RestoreFromTrashOutlined';
 import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined';
 import DialogActions from '@material-ui/core/DialogActions';
+import MaterialUIPickers from './MaterialUIPickers'
 
 var userService = new UserService();
 
@@ -31,19 +29,15 @@ class EditNote extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: '',
-      noteDescription: '',
+      title: null,
+      noteDescription: null,
       Reminder: null,
       open: true,
     }
   }
-
-  // handleReminder = (dataFromChild) => {
-  //   this.setState({
-  //     addReminder: dataFromChild
-  //   })
-  // }
+  
   handleReminder = (value, noteId) => {
+    //e.stopPropagation();
     var reminderData = {
       Reminder: value
     }
@@ -95,7 +89,7 @@ class EditNote extends React.Component {
       Message: this.state.noteDescription,
       Reminder: this.state.addReminder,
     }
-    if(noteData.Title !== '' || noteData.Message !== '')
+    if(noteData.Title !== null || noteData.Message !== null)
     {
       await userService.EditNote(noteData,this.props.noteData.id).then(
 
@@ -104,8 +98,8 @@ class EditNote extends React.Component {
   
           this.setState(
             {
-              title: '',
-            noteDescription: '',
+              title: null,
+            noteDescription: null,
             addReminder: null,
             }
           )
@@ -148,7 +142,7 @@ class EditNote extends React.Component {
       >
         {/* <Card id={this.props.noteData.id} className={classes.Edit} style={{ backgroundColor: this.props.noteData.color }} > */}
 
-        <CardContent onClick={this.handleEditNote}>
+        <CardContent>
         <InputBase
         style={{ wordBreak: 'break-all',width:'100%',maxWidth:'100%'}}
         defaultValue={this.props.noteData.title}
@@ -179,7 +173,7 @@ class EditNote extends React.Component {
         {!this.props.noteData.isTrash ?
           <DialogActions className={classes.root2} disableSpacing>
             <>
-              <AddReminder noteId={this.props.noteData.id} handleReminder={this.handleReminder} />
+              <MaterialUIPickers noteId={this.props.noteData.id} handleReminder={this.handleReminder} />
             </>
 
 

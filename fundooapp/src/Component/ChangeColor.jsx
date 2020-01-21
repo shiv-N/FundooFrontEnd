@@ -6,6 +6,7 @@ import ColorLensOutlinedIcon from '@material-ui/icons/ColorLensOutlined';
 import IconButton from '@material-ui/core/IconButton';
 import UserService from '../Service/UserService';
 import { ClickAwayListener } from '@material-ui/core';
+import Tooltip from '@material-ui/core/Tooltip'
 
 var userService = new UserService();
 
@@ -48,20 +49,18 @@ class ChangeColor extends Component {
             this.setState({ anchorEl: null });
         }
       };
-   
-    // handleClick = (event) => {
-    //     this.setState({
-    //         click: !this.state.click,
-    //         anchorEl: event.currentTarget
-    //     });
-    // };
 
    async handleColorChange(value){
     
     await this.setState({
             color:value 
         });
-        this.ChangeColor();
+        if(this.props.colorCode === undefined){
+            this.ChangeColor();
+        }
+        else{
+            this.props.color(this.state.color);
+        }
     }
     ChangeColor=()=>{
         var colorData={
@@ -69,6 +68,7 @@ class ChangeColor extends Component {
         }
         userService.ChangeColor(colorData,this.props.noteId).then(
             response =>{
+                
                 this.props.handleGetNotes();
             }
         )
@@ -79,8 +79,10 @@ class ChangeColor extends Component {
         const open = Boolean(anchorEl);
         return (
             <div>
+                <Tooltip title="Change color">
                 <IconButton onClick={this.handlePopoverOpen} className={classes.iconButton}>
                     <ColorLensOutlinedIcon fontSize="small" />
+                    
                 {this.state.anchorEl !== null ?
                 <ClickAwayListener onClickAway={() => this.setState({anchorEl:null})}>
                 <Popper id={this.props.noteId}  open={open} anchorEl={anchorEl}
@@ -96,6 +98,7 @@ class ChangeColor extends Component {
                 </ClickAwayListener>
                 : null}
                 </IconButton>
+                </Tooltip>
             </div>
         );
     }

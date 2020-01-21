@@ -14,7 +14,7 @@ export default class AxiosService {
      }
      
      PUT(path,data,tokenAuth){
-        console.log('axiosService data of put:',data,tokenAuth);
+        console.log('axiosService data of put:',path,data,tokenAuth);
         return axios.put(Baseurl+path,data,tokenAuth);
      }
 
