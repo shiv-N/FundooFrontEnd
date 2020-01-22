@@ -2,9 +2,9 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import Chip from '@material-ui/core/Chip';
-import AccessTimeIcon from '@material-ui/icons/AccessTime';
+import { Avatar } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
-import CardContent from '@material-ui/core/CardContent';
+import Popper from '@material-ui/core/Popper';
 import { useStyles } from '../css/displayNote'
 import { withStyles } from '@material-ui/core/styles'
 import '../css/displayNote';
@@ -16,6 +16,9 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
 import Divider from '@material-ui/core/Divider';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 
 var userService = new UserService();
 
@@ -24,75 +27,169 @@ class AddCollaborators extends React.Component {
     super(props);
     this.state = {
       open: false,
+      CollaboratorData:[],
+      Email:null,
+      anchorEl:null
     }
   }
-  handleOpen=()=>{
+  handleOpen = () => {
     this.setState({ open: true });
   }
-  handleClose = async () => {
-    await this.setState({ open: false });
+  handleClose = async (event) => {
+    await this.setState({ open: false,CollaboratorData:[]});
   };
-  onChange=(e) =>{
+  // handleGetCollaborators=async(e)=>{
+  
+  //   if(this.state.CollaboratorData.length === 0){
+  //     await userService.getCollaborators().then(
+  //       response=>{
+  //         console.log('in userService');
+  //         this.setState({          
+  //           CollaboratorData:response.data.data
+  //         })
+  //       }
+  //     )}   
+      
+  // }
+  collaborateNote=(data)=>{
+    console.log('coll',data);
+    
+  }
+  GetSearchCollaborators= async(data,event)=>{
+    console.log('>',data);
+    var SearchData={
+      Keyword : data
+    }
+   await userService.GetSearchCollaborators(SearchData).then(
+      response=>{
+        console.log('in search userService',response);       
+          this.setState({          
+            CollaboratorData:response.data.data
+          })
+      }
+    ).catch(error=>{
+      this.setState({          
+        CollaboratorData:[]
+      })
+    })
+    console.log(this.state.CollaboratorData);
+    
+  }
+  onChange =  async (e) => {
+    e.persist()
+    console.log(e.currentTarget);
+    
     this.setState(
-        {
-            [e.target.name]: e.target.value
-        }
+      {
+        [e.target.name]: e.target.value,
+        
+      }
     )
-    // console.log(e.target.value);
-    
+    await this.setState({anchorEl:e.currentTarget})
+    this.GetSearchCollaborators(this.state.Email,e);
+  }
+  DisplayList=(value,index)=>{
+    console.log('value=>',value.email);
+    return(
+      <ListItem>
+        <ListItemText primary={value.email}/>
+      </ListItem>
+    );
 }
+
+
+
+
   render() {
+    const userList = this.state.CollaboratorData.map((value,index)=>{
+      return(
+        <ListItem onClick={this.collaborateNote(value.Id)}>
+          <ListItemText primary={value.email}/>
+        </ListItem>
+      );
     
+    })
     const theme = createMuiTheme({
       overrides: {
-        MuiDialog:{paperWidthSm : {
-          backgroundColor: 'white',
-          borderRadius: "7px"
-        }},
-        MuiCardContent:{root:{'last-child': {
-          paddingBottom: "0px"
-      }}},
-      MuiCardContent:{root: {
-        padding: "0px"
-    }
-      }}
+        MuiDialog: {
+          paperWidthSm: {
+            backgroundColor: 'white',
+            borderRadius: "7px"
+          }
+        },
+        MuiCardContent: {
+          root: {
+            'last-child': {
+              paddingBottom: "0px"
+            }
+          }
+        },
+        MuiCardContent: {
+          root: {
+            padding: "0px"
+          }}
+      }
     })
-    const { classes } = this.props;
+    const { anchorEl } = this.state;
+    const open = Boolean(anchorEl);
+    console.log("open in ren",anchorEl);
+    
     return (
-        <div>
+      <div>
         <MuiThemeProvider theme={theme}>
-        <Tooltip title="Collaborator">
-                <IconButton aria-label="collaboration"  onClick={this.handleOpen}>
+            <Tooltip title="Collaborator">
+              <IconButton aria-label="collaboration" onClick={this.handleOpen}>
                 <PersonAddOutlinedIcon fontSize="small" />
-                </IconButton>
-        </Tooltip>
-      <Dialog
-        open={this.state.open}
-        onClose={this.handleClose}
-      >
-      
-        <Typography variant='h5' style={{width:'400px',padding:'0.2em'}}>
-            Collaborators
-        </Typography>
-          
-        <Divider variant="middle" />
+              </IconButton>
+            </Tooltip>
+          <Dialog
+            open={this.state.open}
+            onClose={this.handleClose}>
+              <Typography variant='h5' style={{ width: '575px', padding: '0.2em', marginLeft: '0.5em', marginRight: "0.2em" }}>
+                Collaborators
+              </Typography>
 
-        <Typography style={{marginTop:'0.5em',padding:'0.1em'}}>
-            {localStorage.getItem('UserEmail')} (Owner)
-        </Typography>
-        <Paper component="form" className={classes.root2} style={{ backgroundColor: 'rgba(0,0,0,0.07)' }}>
-        <Button variant="contained" onClick={this.AddNote} style={{color: 'rgba(0,0,0,0.87)', textTransform: 'capitalize'}} disableElevation>
-            Close
-        </Button>
-        <Button variant="contained" onClick={this.AddNote} style={{color: 'rgba(0,0,0,0.87)', textTransform: 'capitalize'}} disableElevation>
-            Save
-        </Button>
-        </Paper>
-        
+              <Divider variant="middle" />
+              <div style={{ width: "39%", display: "flex", flexDirection: "row", justifyContent: 'space-between', marginTop: '0.5em', padding: '0.1em', marginLeft: '1em' }}>
+                  <Avatar></Avatar>
 
-        
-      </Dialog>
-      </MuiThemeProvider>
+                  <Typography style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                    {localStorage.getItem('UserEmail')} (Owner)
+                  </Typography>
+              </div>
+            
+              <div style={{ display: "flex", flexDirection: "row", justifyContent: 'space-between', marginTop: '0.5em', padding: '0.1em', marginLeft: '1em' }}>
+                  <Avatar>
+                    <PersonAddOutlinedIcon fontSize="small" />
+                  </Avatar>
+                  <InputBase type="text" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '82%', marginRight: '3em' }}
+                    className='input'
+                    placeholder="Person or Email to share with"
+                    name="Email"
+                    //onClick={this.handleGetCollaborators}
+                    onChange={this.onChange}
+                  />
+                  {this.state.CollaboratorData.length !==0 ?
+                  <Popper open={open} anchorEl={anchorEl} style={{backgroundColor:'aqua',width:'200px',zIndex:"1350"}}>
+                    
+                    <List>
+                      
+                    {userList}
+                    
+                    </List>
+                  </Popper>
+                  :null}
+            </div>
+            <Paper component="form" style={{ display: "flex", flexDirection: "row-reverse", backgroundColor: 'rgba(0,0,0,0.07)', padding: "0.5em" }}>
+                <Button  onClick={this.handleClose} style={{ color: 'rgba(0,0,0,0.87)', textTransform: 'capitalize' }} disableElevation>
+                  Save
+                </Button>
+                <Button onClick={this.handleClose} style={{ color: 'rgba(0,0,0,0.87)', textTransform: 'capitalize' }} disableElevation>
+                  Cancel
+                </Button>
+            </Paper>
+          </Dialog>
+        </MuiThemeProvider>
       </div>
     );
   }

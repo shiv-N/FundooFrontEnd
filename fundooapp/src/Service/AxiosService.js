@@ -9,13 +9,13 @@ export default class AxiosService {
     }
     
     GET(path,data,tokenAuth){
-        console.log('axiosService data of get:',data,tokenAuth);
+        console.log('axiosService data of get:',path,data,tokenAuth);
         return axios.get(Baseurl+path,data,tokenAuth);
      }
      
      PUT(path,data,tokenAuth){
         console.log('axiosService data of put:',path,data,tokenAuth);
-        return axios.put(Baseurl+path,data,tokenAuth);
+        return axios.put(Baseurl+path,data,tokenAuth)
      }
 
      DELETE(path,tokenAuth){
