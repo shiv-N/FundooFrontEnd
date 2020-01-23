@@ -90,7 +90,7 @@ class AddReminder extends React.Component {
     return (
       <div>
         <Tooltip title="Remind me">
-        <IconButton aria-label="reminder" onClick={this.handlePopoverOpen} className={classes.iconButton} >
+        <IconButton  onClick={this.handlePopoverOpen} >
           <AddAlertOutlinedIcon fontSize="small" />
         </IconButton>
         </Tooltip>

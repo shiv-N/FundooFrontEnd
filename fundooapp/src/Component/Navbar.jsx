@@ -16,6 +16,7 @@ import Searchbar from './SearchBar';
 import { connect } from 'react-redux';
 import {ViewGrid,ViewList} from '../Redux/ToggleAction'
 import Tooltip from '@material-ui/core/Tooltip';
+import SignOut from './SignOut'
 
 class Navbar extends Component {
 
@@ -29,7 +30,6 @@ class Navbar extends Component {
 
   render() {
     const { classes } = this.props;
-    console.log('==>',this.props.toggleView);
     
     return (
       <div className={classes.grow}>
@@ -61,9 +61,12 @@ class Navbar extends Component {
               <SettingsOutlinedIcon />
             </IconButton>
 
-            <IconButton>
+            {/* <IconButton>
               <Avatar>S</Avatar>
-            </IconButton>
+            </IconButton> */}
+            <>
+            <SignOut/>
+            </>
           </Toolbar>
         </AppBar>
 

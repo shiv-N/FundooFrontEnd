@@ -24,6 +24,11 @@ import Tooltip from '@material-ui/core/Tooltip';
 import MaterialUIPickers from './MaterialUIPickers';
 import Addcollaborator from './AddCollaborators';
 import { connect } from 'react-redux';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import { Avatar } from '@material-ui/core';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core';
 
 var userService = new UserService();
 
@@ -100,17 +105,52 @@ class DisplayNote extends Component {
   };
 
   render() {
+    const userList = this.props.noteData.collaborators.map((value,index)=>{
+      return(
+        <ListItem>
+          <Tooltip title={value.collabratorId}>
+          <Avatar style={{width:"20px",height:"20px"}}></Avatar>
+          </Tooltip>
+          {/* <ListItemText primary={value.collabratorId}/> */}
+        </ListItem>
+      );
     
+    })
+    console.log(this.props.noteData);
+    
+    const theme = createMuiTheme({
+      overrides: {
+        MuiListItem:{
+          gutters: {
+          paddingLeft: '2px',
+          paddingRight: '2px'
+      }},
+      MuiList:{
+        padding: {
+        paddingTop: '0px',
+        paddingBottom: '0px'
+    }},
+    MuiCardActions:{root: {
+      display: 'flex',
+      marginLeft: '0.8em',
+      marginRight: '0.8em'
+  }},
+  MuiCardActions:{root: {
+    padding: '0px',
+    alignItems: 'center'
+  }}
+    }})
     const { classes } = this.props;
     return (
       <div>
+        <MuiThemeProvider theme={theme}>
         {
           !this.state.click ?
             <Card id={this.props.noteData.id} className={!this.props.toggleView?classes.card:classes.ListView} style={{ backgroundColor: this.props.noteData.color }} >
 
               <CardContent onClick={this.handleEditNote}>
                 
-                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between',justifyItems:'center' }}>
                   <Typography>
                     {this.props.noteData.title}
                   </Typography>
@@ -128,6 +168,7 @@ class DisplayNote extends Component {
                 </Typography>
                 
                 </CardContent>
+                <div style={{display:'flex',flexDirection:'row',flexWrap:"wrap"}}>
                 {this.props.noteData.addReminder !== null ?
                 <Chip className={!this.props.toggleView?classes.GridReminder:classes.ListReminder}
                   variant="outlined"
@@ -138,6 +179,12 @@ class DisplayNote extends Component {
                 // onDelete={handleDelete}
                 /> : null}
 
+                  {this.props.noteData.collaborators.length === 0?
+                  null:<List style={{display:'flex',marginLeft:'0.8em'}}>
+                    {userList}
+                  </List>
+                }
+                </div>
                 {!this.props.noteData.isTrash ?
                 <CardActions className={!this.props.toggleView?classes.icon:classes.ListIcon} disableSpacing>
 
@@ -147,7 +194,7 @@ class DisplayNote extends Component {
                   </>
 
                   <>
-                    <Addcollaborator noteId={this.props.noteData.id} handleReminder={this.handleReminder}/>
+                    <Addcollaborator noteId={this.props.noteData.id} handleGetNotes={this.props.handleGetNotes}/>
                   </>
                   {/* Change Color */}
                   <>
@@ -196,6 +243,7 @@ class DisplayNote extends Component {
             // edit note component
             : <EditNote handleGetNotes={this.props.handleGetNotes} handleEditNoteResponce={this.handleEditNoteResponce} noteData={this.props.noteData} />
         }
+        </MuiThemeProvider>
       </div>
     )
 

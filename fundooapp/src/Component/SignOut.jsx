@@ -5,8 +5,10 @@ import Fab from '@material-ui/core/Fab';
 import ColorLensOutlinedIcon from '@material-ui/icons/ColorLensOutlined';
 import IconButton from '@material-ui/core/IconButton';
 import UserService from '../Service/UserService';
-import { ClickAwayListener } from '@material-ui/core';
+import { ClickAwayListener, Typography } from '@material-ui/core';
 import Tooltip from '@material-ui/core/Tooltip'
+import Button from '@material-ui/core/Button'; 
+import { Avatar } from '@material-ui/core';
 
 var userService = new UserService();
 
@@ -27,11 +29,11 @@ const useStyles = theme => ({
     iconButton: {
         width:'28px',
         height:'28px',
-        padding:'15px'
+        padding:5
       }
 });
 
-class ChangeColor extends Component {
+class SignOut extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -79,28 +81,30 @@ class ChangeColor extends Component {
         const open = Boolean(anchorEl);
         return (
             <div>
-                <Tooltip title="Change color">
-                <IconButton onClick={this.handlePopoverOpen} >
-                    <ColorLensOutlinedIcon fontSize="small" />
-                    
+                <Tooltip title="Fundoo Account">
+                    <IconButton onClick={this.handlePopoverOpen} >
+                    <Avatar>S</Avatar>
+                    </IconButton>
+                </Tooltip>
                 {this.state.anchorEl !== null ?
                 <ClickAwayListener onClickAway={() => this.setState({anchorEl:null})}>
                 <Popper id={this.props.noteId}  open={open} anchorEl={anchorEl}
-                    // anchorOrigin = {{ horizontal: 'right', vertical: 'top' }}
-                    // targetOrigin = {{ horizontal: "middle", vertical: "bottom" }}
                     className={classes.paper} style={{zIndex:1300,opacity:1}}  disableRestoreFocus >
-
-                    {["#0000","#f28b82","#fbbc04","#fff475","#ccff90",
-                    "#cbf0f8","#3e5fc1","#a7ffeb","#aecbfa","#d7aefb","#e6c9a8","#e8eaed"].map((text,index)=>( 
-                        <Fab size='small' key={index} style={{ background: text }} aria-label="add" value="#0000" onClick={()=>this.handleColorChange(text)}></Fab>
-                     ))}
+                <div>
+                <Avatar>S</Avatar>
+                <Typography>
+                    {localStorage.getItem('UserEmail')}
+                </Typography>
+                <Button variant="contained" onClick={this.login} style={{ backgroundColor: '#1a73e8', color: 'white', textTransform: 'capitalize' }} disableElevation>
+                        Next
+                    </Button>
+                </div>
                 </Popper>
                 </ClickAwayListener>
                 : null}
-                </IconButton>
-                </Tooltip>
+                
             </div>
         );
     }
 }
-export default (withStyles)(useStyles)(ChangeColor);
+export default (withStyles)(useStyles)(SignOut);

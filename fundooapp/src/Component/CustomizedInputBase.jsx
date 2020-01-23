@@ -17,7 +17,8 @@ import Moment from 'react-moment';
 import unpin from '../logo/unpin.svg'
 import pin from '../logo/pin.svg'
 import ChangeColor from './ChangeColor';
-import MaterialUIPickers from './MaterialUIPickers'
+import MaterialUIPickers from './MaterialUIPickers';
+import Addcollaborator from './AddCollaborators';
 
 var userService = new UserService();
 
@@ -154,21 +155,18 @@ class CustomizedInputBase extends Component {
             <MaterialUIPickers handleReminder={this.handleReminder} />
           </div>
 
-          <IconButton className='iconButton' aria-label="collaboration">
-            <PersonAddOutlinedIcon />
-          </IconButton>
-
-          {/* <IconButton className='iconButton' aria-label="colour">
-            <ColorLensOutlinedIcon />
-          </IconButton> */}
           <>
-              <ChangeColor colorCode={this.state.color} color={this.handleColor} handleGetNotes={this.props.handleGetNotes} />
+              <Addcollaborator handleGetNotes={this.props.handleGetNotes}/>
           </>
-          <IconButton className='iconButton' aria-label="Image">
+
+          <div>
+              <ChangeColor colorCode={this.state.color} color={this.handleColor} handleGetNotes={this.props.handleGetNotes} />
+          </div>
+          <IconButton aria-label="Image">
             <ImageOutlinedIcon />
           </IconButton>
 
-          <IconButton className='iconButton' aria-label="archive">
+          <IconButton aria-label="archive">
             <ArchiveOutlinedIcon />
           </IconButton>
 

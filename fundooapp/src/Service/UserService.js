@@ -86,7 +86,7 @@ export default class UserService{
         return axiosObj.Post("Notes/SearchCollaborators",data,tokenObject.tokenAuth)
     }
 
-    CollaborateNote(noteId,data){
+    CollaborateUserNote(noteId,data){
         tokenObject.tokenAuth={
             headers: {
                             'Content-Type':'application/json',

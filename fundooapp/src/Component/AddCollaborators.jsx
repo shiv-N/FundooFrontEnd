@@ -29,6 +29,8 @@ class AddCollaborators extends React.Component {
       open: false,
       CollaboratorData:[],
       Email:null,
+      collaboratedEmail:null,
+      CollaboratorId:null,
       anchorEl:null
     }
   }
@@ -36,33 +38,51 @@ class AddCollaborators extends React.Component {
     this.setState({ open: true });
   }
   handleClose = async (event) => {
-    await this.setState({ open: false,CollaboratorData:[]});
+    await this.setState(
+      { 
+        open: false,
+        CollaboratorData:[],
+        collaboratedEmail:null,
+        CollaboratorId:null
+      }
+    );
   };
-  // handleGetCollaborators=async(e)=>{
-  
-  //   if(this.state.CollaboratorData.length === 0){
-  //     await userService.getCollaborators().then(
-  //       response=>{
-  //         console.log('in userService');
-  //         this.setState({          
-  //           CollaboratorData:response.data.data
-  //         })
-  //       }
-  //     )}   
-      
-  // }
-  collaborateNote=(data)=>{
-    console.log('coll',data);
-    
+  handleCollaborationOperation= async()=>{
+    if(this.state.CollaboratorId !== null){
+
+      let collaborattionData={
+        CollaboratorId : this.state.CollaboratorId
+      }
+      await userService.CollaborateUserNote(this.props.noteId,collaborattionData).then(
+        response=>{
+          console.log('collaborateNote res==>',response);
+          this.props.handleGetNotes();
+        }
+      )
+    }
+    this.setState(
+      {
+        open: false,
+        CollaboratorData:[],
+        collaboratedEmail:null,
+        CollaboratorId:null,
+      });
   }
-  GetSearchCollaborators= async(data,event)=>{
+
+  collaborateNote=(id,email)=>{
+    this.setState({
+      collaboratedEmail:email,
+      CollaboratorId:id,
+      anchorEl:null
+    })
+  }
+  GetSearchCollaborators= async(data)=>{
     console.log('>',data);
     var SearchData={
       Keyword : data
     }
    await userService.GetSearchCollaborators(SearchData).then(
-      response=>{
-        console.log('in search userService',response);       
+      response=>{      
           this.setState({          
             CollaboratorData:response.data.data
           })
@@ -77,7 +97,6 @@ class AddCollaborators extends React.Component {
   }
   onChange =  async (e) => {
     e.persist()
-    console.log(e.currentTarget);
     
     this.setState(
       {
@@ -86,24 +105,13 @@ class AddCollaborators extends React.Component {
       }
     )
     await this.setState({anchorEl:e.currentTarget})
-    this.GetSearchCollaborators(this.state.Email,e);
+    this.GetSearchCollaborators(this.state.Email);
   }
-  DisplayList=(value,index)=>{
-    console.log('value=>',value.email);
-    return(
-      <ListItem>
-        <ListItemText primary={value.email}/>
-      </ListItem>
-    );
-}
-
-
-
-
+  
   render() {
     const userList = this.state.CollaboratorData.map((value,index)=>{
       return(
-        <ListItem onClick={this.collaborateNote(value.Id)}>
+        <ListItem button key={value.email} onClick={()=>this.collaborateNote(value.id,value.email)}>
           <ListItemText primary={value.email}/>
         </ListItem>
       );
@@ -132,7 +140,6 @@ class AddCollaborators extends React.Component {
     })
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
-    console.log("open in ren",anchorEl);
     
     return (
       <div>
@@ -166,6 +173,7 @@ class AddCollaborators extends React.Component {
                     className='input'
                     placeholder="Person or Email to share with"
                     name="Email"
+                    value={this.state.collaboratedEmail}
                     //onClick={this.handleGetCollaborators}
                     onChange={this.onChange}
                   />
@@ -181,7 +189,7 @@ class AddCollaborators extends React.Component {
                   :null}
             </div>
             <Paper component="form" style={{ display: "flex", flexDirection: "row-reverse", backgroundColor: 'rgba(0,0,0,0.07)', padding: "0.5em" }}>
-                <Button  onClick={this.handleClose} style={{ color: 'rgba(0,0,0,0.87)', textTransform: 'capitalize' }} disableElevation>
+                <Button  onClick={this.handleCollaborationOperation} style={{ color: 'rgba(0,0,0,0.87)', textTransform: 'capitalize' }} disableElevation>
                   Save
                 </Button>
                 <Button onClick={this.handleClose} style={{ color: 'rgba(0,0,0,0.87)', textTransform: 'capitalize' }} disableElevation>

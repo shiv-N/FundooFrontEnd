@@ -22,6 +22,7 @@ import RestoreFromTrashOutlinedIcon from '@material-ui/icons/RestoreFromTrashOut
 import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined';
 import DialogActions from '@material-ui/core/DialogActions';
 import MaterialUIPickers from './MaterialUIPickers'
+import Addcollaborator from './AddCollaborators';
 
 var userService = new UserService();
 
@@ -177,10 +178,12 @@ class EditNote extends React.Component {
             </>
 
 
-            <IconButton aria-label="collaboration" className={classes.iconButton}>
+            {/* <IconButton aria-label="collaboration" className={classes.iconButton}>
               <PersonAddOutlinedIcon fontSize="small" />
-            </IconButton>
-
+            </IconButton> */}
+             <>
+                    <Addcollaborator noteId={this.props.noteData.id} handleGetNotes={this.props.handleGetNotes}/>
+            </>
             <>
               <ChangeColor noteId={this.props.noteData.id} handleGetNotes={this.props.handleGetNotes} />
             </>

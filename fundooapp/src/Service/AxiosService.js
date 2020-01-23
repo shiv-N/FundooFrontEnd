@@ -4,7 +4,7 @@ var Baseurl="https://localhost:44370/api/";
 export default class AxiosService {
     
     Post(path,data,tokenAuth){
-       console.log('axiosService data of post:',data,tokenAuth);
+       console.log('axiosService data of post:',path,data,tokenAuth);
        return axios.post(Baseurl+path,data,tokenAuth);
     }
     
