@@ -1,4 +1,7 @@
-import { createStore } from 'redux';
+import { createStore  } from 'redux';
+//import RootReducer from './RootReducer'
 import Reducer from './ToggleReducer'
 
-export default createStore(Reducer);
+const store = createStore(Reducer);
+
+export default store;

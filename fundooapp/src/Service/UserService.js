@@ -74,7 +74,16 @@ export default class UserService{
         }
         return axiosObj.GET("Notes/trash",tokenObject.tokenAuth)
     }
-
+    getAllSearchNotes(data){
+        tokenObject.tokenAuth={
+            headers: {
+                            'Content-Type':'application/json',
+                            'Accept':'*',
+                             Authorization: 'Bearer '+localStorage.getItem('Token')
+                     }
+        }
+        return axiosObj.Post("Notes/search",data,tokenObject.tokenAuth)
+    }
     GetSearchCollaborators(data){
         tokenObject.tokenAuth={
             headers: {

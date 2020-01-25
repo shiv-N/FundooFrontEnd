@@ -17,16 +17,49 @@ import { connect } from 'react-redux';
 import {ViewGrid,ViewList} from '../Redux/ToggleAction'
 import Tooltip from '@material-ui/core/Tooltip';
 import SignOut from './SignOut'
+import InputBase from '@material-ui/core/InputBase';
+import SearchIcon from '@material-ui/icons/Search';
+import UserService from '../Service/UserService';
+import {Search} from '../Redux/SearchAction'
+import CloseIcon from '@material-ui/icons/Close';
+
+var userService = new UserService();
 
 class Navbar extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      view: false
+      view: false,
+      SearchValue:null,
+      searchClose:false
     }
   }
+  handleOnChange=async(event)=>{
+    await this.setState({
+      SearchValue: event.target.value
+    })
 
+    this.props.SearchNote(this.state.SearchValue);
+    //this.props.DashboardProps.history.push('/dashboard/Search')
+  }
+  handleCloseSearch=()=>{
+    this.setState({
+      searchClose:false,
+      SearchValue:""
+    },()=>{
+      console.log("SearchValue:",this.state.SearchValue);
+      
+      this.props.DashboardProps.history.push('/dashboard/note')
+    })
+ 
+  }
+  handleSearchComponent=()=>{
+    this.setState({
+      searchClose:true
+    })
+    this.props.DashboardProps.history.push('/dashboard/Search')
+  }
 
   render() {
     const { classes } = this.props;
@@ -41,9 +74,26 @@ class Navbar extends Component {
               Fundoo
           </Typography>
           </div>
-          
-            <Searchbar/>
-
+          {/* ####################################################################### */}
+            {/* <Searchbar DashboardProps={this.props.DashboardProps}/> */}
+            <div className={classes.root}>
+        <Tooltip title="Search">
+          <IconButton className={classes.iconButton}>
+            <SearchIcon />
+          </IconButton>
+        </Tooltip>
+        <InputBase
+          className={classes.input}
+          placeholder="Search..."
+          ref="inputRef"
+          value={this.state.SearchValue}
+          onClick={this.handleSearchComponent}
+          onChange={this.handleOnChange}
+          inputProps={{ 'aria-label': 'search' }}
+        />
+        {this.state.searchClose?<IconButton onClick={this.handleCloseSearch}><CloseIcon/></IconButton>:null}
+      </div>
+{/* ##################################################################################### */}
           <Tooltip title="Refresh">
             <IconButton >
               <RefreshOutlinedIcon />
@@ -65,7 +115,7 @@ class Navbar extends Component {
               <Avatar>S</Avatar>
             </IconButton> */}
             <>
-            <SignOut/>
+            <SignOut DashboardProps={this.props.DashboardProps}/>
             </>
           </Toolbar>
         </AppBar>
@@ -84,7 +134,8 @@ const mapToStateProps = state =>{
 const mapDispatchToProps= dispatch =>{
   return{
       ViewLists:()=>dispatch(ViewList()),
-      ViewGrids:()=>dispatch(ViewGrid())
+      ViewGrids:()=>dispatch(ViewGrid()),
+      SearchNote:(data)=>dispatch(Search(data))
   }
 }
 

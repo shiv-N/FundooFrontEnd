@@ -24,10 +24,12 @@ class Note extends Component {
 
     componentDidMount() {
         this.handleGetNotes();
+        console.log('in did monut');
+        
     }
 
     handleGetNotes = () => {
-        
+        console.log('in display');
         userService.getAllNote().then(response => {
             this.setState({
                 getAllUserNotes: response.data.data,

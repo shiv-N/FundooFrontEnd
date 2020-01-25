@@ -13,6 +13,7 @@ import Label from './Component/Label';
 import Archive from './Component/ArchiveDisplay';
 import {Provider} from 'react-redux'
 import store from '../src/Redux/Store'
+import SearchNotes from '../src/Component/SearchNotes'
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path = "/dashboard/archive" component = { Archive } />
         <Route path = "/dashboard/trash" component = { Trash } />
         <Route path = "/dashboard/label" component = { Label } />
+        <Route path = "/dashboard/Search" component = { SearchNotes } />
      </BrowserRouter>
      </Provider>
   );

@@ -105,7 +105,7 @@ class DisplayNote extends Component {
   };
 
   render() {
-    const userList = this.props.noteData.collaborators.map((value,index)=>{
+    const userList = this.props.noteData.collaborators !== null && this.props.noteData.collaborators.map((value,index)=>{
       return(
         <ListItem>
           <Tooltip title={value.collabratorId}>
@@ -179,7 +179,7 @@ class DisplayNote extends Component {
                 // onDelete={handleDelete}
                 /> : null}
 
-                  {this.props.noteData.collaborators.length === 0?
+                  {this.props.noteData.collaborators === null?
                   null:<List style={{display:'flex',marginLeft:'0.8em'}}>
                     {userList}
                   </List>

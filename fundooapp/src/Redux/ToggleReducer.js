@@ -1,10 +1,14 @@
 import {GRID_VIEW,LIST_VIEW} from './ToggleActionType'
+import {SearchNote} from './SearchActionType'
 
 const primaryState={
-    toggleView:false
+    toggleView:false,
+    keyword:null
 }
 
 const Reducer =(state=primaryState,action)=>{
+    console.log('A',action.payload);
+    
     switch(action.type){
         case GRID_VIEW:
             return {
@@ -15,6 +19,11 @@ const Reducer =(state=primaryState,action)=>{
             return{
                 ...state, 
                 toggleView:true
+            }
+        case SearchNote:
+            return{
+                ...state,
+                keyword:action.payload
             }
         default:return state
     }
