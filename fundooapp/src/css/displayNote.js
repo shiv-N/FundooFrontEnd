@@ -1,8 +1,20 @@
 
 export const useStyles = theme => ({
-    
+  image: {
+    display: 'flex',
+    width: 230,
+    maxWidth: 230,
+    boxShadow:'0.1em 0.1em 0.4em 0em grey',
+    borderRadius: "7px"
+  },
+  imageListView: {
+    display: 'flex',
+    width: 600,
+    maxWidth: 650,
+    boxShadow:'0.1em 0.1em 0.4em 0em grey',
+    borderRadius: "7px"
+  },
     card: {
-        padding: '2px 0px',
         display: 'flex',
         flexDirection: 'column',
         width: 230,
@@ -14,7 +26,6 @@ export const useStyles = theme => ({
         borderRadius: "7px"
     },
     ListView: {
-      padding: '2px 0px',
       display: 'flex',
       flexDirection: 'column',
       width: 600,

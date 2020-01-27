@@ -1,7 +1,6 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
-import Chip from '@material-ui/core/Chip';
 import { Avatar } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import Popper from '@material-ui/core/Popper';
@@ -123,13 +122,6 @@ class AddCollaborators extends React.Component {
           paperWidthSm: {
             backgroundColor: 'white',
             borderRadius: "7px"
-          }
-        },
-        MuiCardContent: {
-          root: {
-            'last-child': {
-              paddingBottom: "0px"
-            }
           }
         },
         MuiCardContent: {

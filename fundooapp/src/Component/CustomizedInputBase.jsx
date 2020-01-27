@@ -5,7 +5,6 @@ import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
 import { useStyles } from '../css/CustomizedInputBaseCSS'
 import { withStyles } from '@material-ui/core/styles'
-import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
 import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
 import ArchiveOutlinedIcon from '@material-ui/icons/ArchiveOutlined';
 import MoreVertOutlinedIcon from '@material-ui/icons/MoreVertOutlined';
@@ -119,6 +118,7 @@ class CustomizedInputBase extends Component {
             className='input'
             placeholder="Title"
             fullWidth={true}
+            multiline
             name="title"
             onChange={this.onChange}
           />
@@ -126,7 +126,7 @@ class CustomizedInputBase extends Component {
           <IconButton className='iconButton' onClick={this.handlePin}>
             {/* <DirectionsIcon /> */}
             {!this.state.isPin?
-              <img src={unpin}/>:<img src={pin}/>
+              <img src={unpin} alt="unpin"/>:<img src={pin} alt="pin"/>
             }
             
           </IconButton>

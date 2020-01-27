@@ -7,7 +7,6 @@ const primaryState={
 }
 
 const Reducer =(state=primaryState,action)=>{
-    console.log('A',action.payload);
     
     switch(action.type){
         case GRID_VIEW:

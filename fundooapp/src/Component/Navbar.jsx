@@ -6,24 +6,20 @@ import Typography from '@material-ui/core/Typography';
 import RefreshOutlinedIcon from '@material-ui/icons/RefreshOutlined';
 import ViewAgendaOutlinedIcon from '@material-ui/icons/ViewAgendaOutlined';
 import SettingsOutlinedIcon from '@material-ui/icons/SettingsOutlined';
-import { Avatar } from '@material-ui/core';
 import DashboardOutlinedIcon from '@material-ui/icons/DashboardOutlined';
 import MenuDrawer from './MenuDrawer';
 import { useStyles } from '../css/NavbarCSS'
 import { withStyles } from '@material-ui/core/styles'
 import { Component } from 'react';
-import Searchbar from './SearchBar';
 import { connect } from 'react-redux';
 import {ViewGrid,ViewList} from '../Redux/ToggleAction'
 import Tooltip from '@material-ui/core/Tooltip';
 import SignOut from './SignOut'
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
-import UserService from '../Service/UserService';
 import {Search} from '../Redux/SearchAction'
 import CloseIcon from '@material-ui/icons/Close';
 
-var userService = new UserService();
 
 class Navbar extends Component {
 
@@ -31,7 +27,7 @@ class Navbar extends Component {
     super(props);
     this.state = {
       view: false,
-      SearchValue:null,
+      SearchValue:'',
       searchClose:false
     }
   }
@@ -85,7 +81,6 @@ class Navbar extends Component {
         <InputBase
           className={classes.input}
           placeholder="Search..."
-          ref="inputRef"
           value={this.state.SearchValue}
           onClick={this.handleSearchComponent}
           onChange={this.handleOnChange}

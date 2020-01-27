@@ -10,7 +10,6 @@ import { withStyles } from '@material-ui/core/styles'
 import '../css/displayNote';
 import CardActions from '@material-ui/core/CardActions';
 import IconButton from '@material-ui/core/IconButton';
-import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
 import ChangeColor from './ChangeColor';
 import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
 import ArchiveOutlinedIcon from '@material-ui/icons/ArchiveOutlined';
@@ -142,7 +141,13 @@ class EditNote extends React.Component {
         onClose={this.handleClose}
       >
         {/* <Card id={this.props.noteData.id} className={classes.Edit} style={{ backgroundColor: this.props.noteData.color }} > */}
-
+        <div onClick={this.handleEditNote}>
+              {this.props.noteData.image === "" || this.props.noteData.image === null?null:
+                    <div >
+                    <img className={classes.image} style={{width:'500px',maxWidth:'500px'}} src={this.props.noteData.image} alt='note Image'/>
+                    </div>
+                    }
+        </div>
         <CardContent>
         <InputBase
         style={{ wordBreak: 'break-all',width:'100%',maxWidth:'100%'}}

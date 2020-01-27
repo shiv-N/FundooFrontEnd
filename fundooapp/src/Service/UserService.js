@@ -140,6 +140,19 @@ export default class UserService{
         return axiosObj.PUT("Notes/archive/"+noteId,data,tokenObject.tokenAuth)
     }
 
+    AddImage(data,noteId){
+        console.log("note id ",noteId);
+        console.log("upload image ",data);
+        
+        tokenObject.tokenAuth={
+            headers: {
+                            'Content-Type':'application/json',
+                            'Accept':'*',
+                             Authorization: 'Bearer '+localStorage.getItem('Token')
+                     }
+        }
+        return axiosObj.PUT("Notes/Image/"+noteId,data,tokenObject.tokenAuth)
+    }
     TrashNote(noteId){
         console.log(noteId);
         var data={}

@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { withStyles } from '@material-ui/core/styles'
 import Popper from '@material-ui/core/Popper';
-import Fab from '@material-ui/core/Fab';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
-import UserService from '../Service/UserService';
 import { ClickAwayListener, Typography } from '@material-ui/core';
 import Tooltip from '@material-ui/core/Tooltip'
 import Button from '@material-ui/core/Button'; 
@@ -12,7 +10,7 @@ import { Avatar } from '@material-ui/core';
 import Badge from '@material-ui/core/Badge';
 import CameraAltOutlinedIcon from '@material-ui/icons/CameraAltOutlined';
 
-var userService = new UserService();
+
 
 const useStyles = theme => ({
     paper: {

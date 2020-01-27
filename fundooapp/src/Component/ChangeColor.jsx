@@ -42,6 +42,7 @@ class ChangeColor extends Component {
         }
     }
     handlePopoverOpen = event => {
+        console.log("qqq--> ", this.props.noteId)
         if(this.state.anchorEl===null){
         this.setState({ anchorEl: event.currentTarget });
         }
@@ -51,7 +52,7 @@ class ChangeColor extends Component {
       };
 
    async handleColorChange(value){
-    
+    console.log("qqq--> ", this.props.noteId)
     await this.setState({
             color:value 
         });
@@ -63,6 +64,7 @@ class ChangeColor extends Component {
         }
     }
     ChangeColor=()=>{
+        console.log("qqq12--> ", this.props.noteId)
         var colorData={
             color : this.state.color
         }
@@ -82,7 +84,8 @@ class ChangeColor extends Component {
                 <Tooltip title="Change color">
                 <IconButton onClick={this.handlePopoverOpen} >
                     <ColorLensOutlinedIcon fontSize="small" />
-                    
+                    </IconButton>
+                </Tooltip>
                 {this.state.anchorEl !== null ?
                 <ClickAwayListener onClickAway={() => this.setState({anchorEl:null})}>
                 <Popper id={this.props.noteId}  open={open} anchorEl={anchorEl}
@@ -97,8 +100,7 @@ class ChangeColor extends Component {
                 </Popper>
                 </ClickAwayListener>
                 : null}
-                </IconButton>
-                </Tooltip>
+               
             </div>
         );
     }
