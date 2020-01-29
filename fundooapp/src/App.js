@@ -28,7 +28,7 @@ function App() {
         <Route path = "/dashboard/reminder" component = { Reminder } />
         <Route path = "/dashboard/archive" component = { Archive } />
         <Route path = "/dashboard/trash" component = { Trash } />
-        <Route path = "/dashboard/label" component = { Label } />
+        <Route path = "/dashboard/label/" component = { Label } />
         <Route path = "/dashboard/Search" component = { SearchNotes } />
      </BrowserRouter>
      </Provider>

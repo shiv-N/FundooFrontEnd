@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import UserService from '../Service/UserService';
 import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
 import Tooltip from '@material-ui/core/Tooltip';
-import { Button } from '@material-ui/core';
 
 var userService = new UserService();
 

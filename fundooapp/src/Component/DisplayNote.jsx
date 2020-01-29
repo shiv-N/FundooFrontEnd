@@ -4,7 +4,6 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
 import ArchiveOutlinedIcon from '@material-ui/icons/ArchiveOutlined';
 import { useStyles } from '../css/displayNote'
 import { withStyles } from '@material-ui/core/styles'
@@ -26,7 +25,7 @@ import Addcollaborator from './AddCollaborators';
 import { connect } from 'react-redux';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import { Avatar, Input } from '@material-ui/core';
+import { Avatar } from '@material-ui/core';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core';
 import UploadImage from './UploadImage'
 
@@ -162,7 +161,7 @@ class DisplayNote extends Component {
               <div onClick={this.handleEditNote}>
                 {this.props.noteData.image === "" || this.props.noteData.image === null ? null :
 
-                  <img className={!this.props.toggleView ? classes.image : classes.imageListView} src={this.props.noteData.image} alt='note Image' />
+                  <img className={!this.props.toggleView ? classes.image : classes.imageListView} src={this.props.noteData.image} alt='noteImage' />
 
                 }
               </div>
@@ -190,6 +189,7 @@ class DisplayNote extends Component {
               <div style={{ display: 'flex', flexDirection: 'row', flexWrap: "wrap" }}>
                 {this.props.noteData.addReminder !== null ?
                   <Chip className={!this.props.toggleView ? classes.GridReminder : classes.ListReminder}
+                  style={{backgroundColor:"#443e374d",marginBottom:'1%'}}
                     variant="outlined"
                     size="small"
                     icon={<AccessTimeIcon />}
@@ -197,7 +197,15 @@ class DisplayNote extends Component {
                   // onClick={handleClick}
                   // onDelete={handleDelete}
                   /> : null}
-
+                {this.props.noteData.labels !== null ?
+                  this.props.noteData.labels.map((data,index)=>(
+                  <Chip style={{backgroundColor:"#443e374d",marginLeft: '0.2em',marginBottom:'1%'}}
+                    variant="outlined"
+                    size="small"
+                    label={data.labelName}
+                  // onClick={handleClick}
+                  // onDelete={handleDelete}
+                  /> )): null}
                 {this.props.noteData.collaborators === null ?
                   null : <List style={{ display: 'flex', marginLeft: '0.8em' }}>
                     {userList}

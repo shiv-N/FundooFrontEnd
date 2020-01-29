@@ -21,12 +21,13 @@ class Note extends Component {
     }
 
     componentDidMount() {
-        this.handleGetNotes();
-        
+        this.handleGetNotes(); 
     }
 
     handleGetNotes = () => {
         userService.getAllNote().then(response => {
+            console.log(response.data.data);
+            
             this.setState({
                 getAllUserNotes: response.data.data,
                 view: false,

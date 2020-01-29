@@ -11,7 +11,6 @@ import '../css/displayNote';
 import CardActions from '@material-ui/core/CardActions';
 import IconButton from '@material-ui/core/IconButton';
 import ChangeColor from './ChangeColor';
-import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
 import ArchiveOutlinedIcon from '@material-ui/icons/ArchiveOutlined';
 import MoreMenu from './MoreMenu'
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core';
@@ -22,6 +21,7 @@ import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined'
 import DialogActions from '@material-ui/core/DialogActions';
 import MaterialUIPickers from './MaterialUIPickers'
 import Addcollaborator from './AddCollaborators';
+import UploadImage from './UploadImage'
 
 var userService = new UserService();
 
@@ -119,12 +119,9 @@ class EditNote extends React.Component {
             [e.target.name]: e.target.value
         }
     )
-    // console.log(e.target.value);
     
 }
   render() {
-    console.log('title==>',this.state.title);
-    
     const theme = createMuiTheme({
       overrides: {
         MuiDialog:{paperWidthSm : {
@@ -144,7 +141,7 @@ class EditNote extends React.Component {
         <div onClick={this.handleEditNote}>
               {this.props.noteData.image === "" || this.props.noteData.image === null?null:
                     <div >
-                    <img className={classes.image} style={{width:'500px',maxWidth:'500px'}} src={this.props.noteData.image} alt='note Image'/>
+                    <img className={classes.image} style={{width:'500px',maxWidth:'500px'}} src={this.props.noteData.image} alt='noteImage'/>
                     </div>
                     }
         </div>
@@ -193,9 +190,10 @@ class EditNote extends React.Component {
               <ChangeColor noteId={this.props.noteData.id} handleGetNotes={this.props.handleGetNotes} />
             </>
 
-            <IconButton aria-label="Image" className={classes.iconButton}>
-              <ImageOutlinedIcon fontSize="small" />
-            </IconButton>
+            {/* Add image */}
+            <>
+                    <UploadImage noteId={this.props.noteData.id} handleGetNotes={this.props.handleGetNotes} />
+            </>
 
             <IconButton aria-label="archive" className={classes.iconButton} onClick={() => this.handleClick(this.props.noteData.id)}>
               <ArchiveOutlinedIcon fontSize="small" />

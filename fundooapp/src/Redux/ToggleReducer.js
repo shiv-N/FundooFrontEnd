@@ -1,9 +1,13 @@
 import {GRID_VIEW,LIST_VIEW} from './ToggleActionType'
 import {SearchNote} from './SearchActionType'
+import {Label} from './LabelActionType'
+const Display="display";
 
 const primaryState={
     toggleView:false,
-    keyword:null
+    keyword:null,
+    UserLabels: [],
+    labelValue:null
 }
 
 const Reducer =(state=primaryState,action)=>{
@@ -24,6 +28,18 @@ const Reducer =(state=primaryState,action)=>{
                 ...state,
                 keyword:action.payload
             }
+        case Label:{
+            return{
+                ...state,
+                UserLabels:action.payload
+            }
+        }
+        case Display:{
+            return{
+                ...state,
+                labelValue:action.payload
+            }
+        }
         default:return state
     }
 }

@@ -42,6 +42,26 @@ export default class UserService{
         }
         return axiosObj.Post("Notes",data,tokenObject.tokenAuth)
     }
+    addUserLabel(data){
+        tokenObject.tokenAuth={
+            headers: {
+                            'Content-Type':'application/json',
+                            'Accept':'*',
+                             Authorization: 'Bearer '+localStorage.getItem('Token')
+                     }
+        }
+        return axiosObj.Post("Labels",data,tokenObject.tokenAuth)
+    }
+    addNoteLabel(noteId,data){
+        tokenObject.tokenAuth={
+            headers: {
+                            'Content-Type':'application/json',
+                            'Accept':'*',
+                             Authorization: 'Bearer '+localStorage.getItem('Token')
+                     }
+        }
+        return axiosObj.Post("Notes/AddNoteLabel/"+noteId,data,tokenObject.tokenAuth)
+    }
     getAllNote(){
         tokenObject.tokenAuth={
             headers: {
@@ -53,6 +73,16 @@ export default class UserService{
         return axiosObj.GET("Notes",tokenObject.tokenAuth)
     }
 
+    getLabelNote(labelName){
+        tokenObject.tokenAuth={
+            headers: {
+                            'Content-Type':'application/json',
+                            'Accept':'*',
+                             Authorization: 'Bearer '+localStorage.getItem('Token')
+                     }
+        }
+        return axiosObj.GET("Notes/NoteLabel/"+labelName,tokenObject.tokenAuth)
+    }
     getAllArchiveNotes(){
         tokenObject.tokenAuth={
             headers: {
@@ -73,6 +103,17 @@ export default class UserService{
                      }
         }
         return axiosObj.GET("Notes/trash",tokenObject.tokenAuth)
+    }
+
+    getAllLabels(){
+        tokenObject.tokenAuth={
+            headers: {
+                            'Content-Type':'application/json',
+                            'Accept':'*',
+                             Authorization: 'Bearer '+localStorage.getItem('Token')
+                     }
+        }
+        return axiosObj.GET("Labels",tokenObject.tokenAuth)
     }
     getAllSearchNotes(data){
         tokenObject.tokenAuth={

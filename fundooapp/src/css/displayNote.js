@@ -74,6 +74,15 @@ export const useStyles = theme => ({
       border:'none',
       boxShadow:'none',
     },
+    labelDialoag: {
+      padding: '2px 4px',
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      width: 280,
+      border:'none',
+      boxShadow:'none',
+    },
     iconButton: {
       width:'28px',
       height:'28px',

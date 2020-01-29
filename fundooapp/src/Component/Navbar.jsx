@@ -37,7 +37,6 @@ class Navbar extends Component {
     })
 
     this.props.SearchNote(this.state.SearchValue);
-    //this.props.DashboardProps.history.push('/dashboard/Search')
   }
   handleCloseSearch=()=>{
     this.setState({
