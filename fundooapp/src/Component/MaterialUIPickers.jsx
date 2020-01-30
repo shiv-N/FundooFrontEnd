@@ -74,8 +74,7 @@ class MaterialUIPickers extends React.Component {
         
           async handleClose() {
             await this.setState({ anchorEl: null });
-        
-            if(this.state.selectedDate !== new Date('2020-01-01T09:00:00')){
+            if(this.state.selectedDate >= new Date()){
               this.props.handleReminder(this.state.selectedDate,this.props.noteId)
             }
             

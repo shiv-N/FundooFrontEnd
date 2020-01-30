@@ -40,7 +40,6 @@ class MenuDrawer extends Component{
     handleNoteLabels=async()=>{
     await userService.getAllLabels().then(
             response=>{
-                console.log("label-->",response.data.data);
                 this.setState({
                     Labels:response.data.data
                 })
@@ -103,8 +102,7 @@ class MenuDrawer extends Component{
                 {
                     this.state.Labels.length === 0?null:
                     this.state.Labels.map((text, index) => (
-                                <ListItem style={{paddingLeft:'18px'}} button key={text}
-                                //onClick={({text})=>this.props.DisplayUserLabel({text}),() => this.props.DashboardProps.history.push('/dashboard/label')}
+                                <ListItem style={{paddingLeft:'18px'}} button key={'Labels=>'+text.labelName}
                                 onClick={()=>this.handdleDisplayLabel(text)}
                                 >
                                 <ListItemIcon><LabelOutlinedIcon/></ListItemIcon>

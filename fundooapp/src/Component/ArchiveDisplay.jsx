@@ -24,7 +24,6 @@ class ArchiveDisplay extends Component{
     handleGetNotes = () => {
         
         userService.getAllArchiveNotes().then(response => {
-            console.log('archive',response);
             
             this.setState({
                 getAllNotes: response.data.data,

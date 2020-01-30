@@ -38,16 +38,12 @@ class DisplayNote extends Component {
       click: false,
       reminder: null,
       isPin: false,
-      // noteid:this.props.noteData,
       noteId: ''
     }
 
   }
 
   handlePin = (e) => {
-    // this.setState({
-    //   isPin: !this.state.isPin
-    // })
     e.stopPropagation();
     userService.PinNote(this.props.noteData.id).then(
       response => {
@@ -64,7 +60,6 @@ class DisplayNote extends Component {
     console.log(this.props.noteId);
     userService.AddReminder(reminderData, noteId).then(
       response => {
-        console.log(response);
 
         this.props.handleGetNotes();
       }
@@ -91,7 +86,6 @@ class DisplayNote extends Component {
   handleRestoreClick(noteId) {
     userService.TrashNote(noteId).then(
       response => {
-        console.log(response);
 
         this.props.handleGetNotes();
       }
@@ -106,7 +100,26 @@ class DisplayNote extends Component {
     )
   };
 
+  handleDeleteReminder = (noteId) => {
+    var reminderData = {
+      Reminder: null
+    }
+    userService.DeleteReminder(reminderData, noteId).then(
+      response => {
 
+        this.props.handleGetNotes();
+      }
+    )
+  }
+
+  handleDeleteLabel = (data) => {
+    userService.DeleteNoteLabel(data.id).then(
+      response => {
+
+        this.props.handleGetNotes();
+      }
+    )
+  }
   render() {
 
 
@@ -186,28 +199,34 @@ class DisplayNote extends Component {
                 </Typography>
 
               </CardContent>
-              <div style={{ display: 'flex', flexDirection: 'row', flexWrap: "wrap" }}>
+              <div style={{ display: 'flex', flexDirection: 'row',alignItems:'center',flexWrap: "wrap" }}>
                 {this.props.noteData.addReminder !== null ?
                   <Chip className={!this.props.toggleView ? classes.GridReminder : classes.ListReminder}
-                  style={{backgroundColor:"#443e374d",marginBottom:'1%'}}
+                    style={{ backgroundColor: "#443e374d", marginBottom: '1%' }}
                     variant="outlined"
                     size="small"
                     icon={<AccessTimeIcon />}
                     label={<Moment format="MMMM Do, h:mm a">{this.props.noteData.addReminder}</Moment>}
-                  // onClick={handleClick}
-                  // onDelete={handleDelete}
-                  /> : null}
+                    // onClick={handleClick}
+                    onDelete={() => this.handleDeleteReminder(this.props.noteData.id)}
+                  />
+
+                  : null}
                 {this.props.noteData.labels !== null ?
-                  this.props.noteData.labels.map((data,index)=>(
-                  <Chip style={{backgroundColor:"#443e374d",marginLeft: '0.2em',marginBottom:'1%'}}
-                    variant="outlined"
-                    size="small"
-                    label={data.labelName}
-                  // onClick={handleClick}
-                  // onDelete={handleDelete}
-                  /> )): null}
+                  this.props.noteData.labels.map((data, index) => 
+                  (
+                    <Chip key={'label:' + data.labelName}
+                      style={{ backgroundColor: "#443e374d", marginLeft: '0.8em', marginBottom: '1%' }}
+                      variant="outlined"
+                      size="small"
+                      label={data.labelName}
+                      // onClick={handleClick}
+                      onDelete={() => this.handleDeleteLabel(data)}
+                    />
+                  )) : null}
                 {this.props.noteData.collaborators === null ?
-                  null : <List style={{ display: 'flex', marginLeft: '0.8em' }}>
+                  null : 
+                  <List style={{ display: 'flex', marginLeft: '0.8em' }}>
                     {userList}
                   </List>
                 }

@@ -5,7 +5,6 @@ import { useStyles } from '../css/displayNote'
 import { withStyles } from '@material-ui/core/styles'
 import '../css/displayNote';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core';
-import DialogActions from '@material-ui/core/DialogActions';
 import Typography from '@material-ui/core/Typography';
 import Input from '@material-ui/core/Input';
 import CloseOutlinedIcon from '@material-ui/icons/CloseOutlined';
@@ -87,7 +86,7 @@ class AddLabel extends React.Component {
                         this.props.labels !== null?
 
                         this.props.labels.map((data,index)=>(
-                            <div style={{ display: 'flex', marginLeft: '16px', marginBottom: '12px', marginRight: '16px' }}>
+                            <div key={'labelDialog:'+index} style={{ display: 'flex', marginLeft: '16px', marginBottom: '12px', marginRight: '16px' }}>
                         <LabelOutlinedIcon />
                         <Typography  style={{ marginLeft: '16px', marginBottom: '12px ', width: '80%' }}>
                             {data.labelName}

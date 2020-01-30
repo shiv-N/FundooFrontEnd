@@ -26,8 +26,7 @@ class Note extends Component {
 
     handleGetNotes = () => {
         userService.getAllNote().then(response => {
-            console.log(response.data.data);
-            
+
             this.setState({
                 getAllUserNotes: response.data.data,
                 view: false,
@@ -44,7 +43,6 @@ class Note extends Component {
 
     }
     onClose=(value)=>{
-        console.log('im in on close');
         
         this.setState(
             {
@@ -54,16 +52,16 @@ class Note extends Component {
     }
     DisplayPinNotes=(value,index)=> {
         return(
-            <>   
-                {value.isPin?<DisplayNote noteData={value} key={index} handleGetNotes={this.handleGetNotes}/>:null}
-            </>
+            //<div key={"pinned"+index}>   
+                value.isPin?<DisplayNote noteData={value} key={"pinned"+index} handleGetNotes={this.handleGetNotes}/>:null
+            //</div>
          ) }
 
     DisplayUnPinNotes=(value,index)=> {
         return(
-            <>
-                {!value.isPin?<DisplayNote noteData={value} key={index} handleGetNotes={this.handleGetNotes}/>:null}
-            </>
+            // <div key={"pinned"+index}>
+                !value.isPin?<DisplayNote noteData={value} key={"unpineed"+index} handleGetNotes={this.handleGetNotes}/>:null
+            // </div>
         ) }
     render() {
         

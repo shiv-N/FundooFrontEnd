@@ -47,7 +47,7 @@ export const useStyles = theme => ({
   },
     GridReminder:{
       marginLeft: '1em',
-      width: "75%"
+      width: "78%"
     },
     ListReminder:{
       marginLeft: '1em',
