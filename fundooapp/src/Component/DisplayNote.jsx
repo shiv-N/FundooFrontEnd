@@ -124,10 +124,11 @@ class DisplayNote extends Component {
 
 
     const userList = this.props.noteData.collaborators !== null && this.props.noteData.collaborators.map((value, index) => {
+      console.log('>',value);
       return (
         <ListItem key={value.collabratorId}>
-          <Tooltip title={value.collabratorId}>
-            <Avatar style={{ width: "20px", height: "20px" }}></Avatar>
+          <Tooltip title={value.collaboratorEmail}>
+            <Avatar src={value.profilePhoto}style={{ width: "20px", height: "20px" }}></Avatar>
           </Tooltip>
           {/* <ListItemText primary={value.collabratorId}/> */}
         </ListItem>
@@ -162,6 +163,7 @@ class DisplayNote extends Component {
         }
       }
     })
+    
     const { classes } = this.props;
     return (
 

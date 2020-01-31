@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button';
 import { Avatar } from '@material-ui/core';
 import Badge from '@material-ui/core/Badge';
 import CameraAltOutlinedIcon from '@material-ui/icons/CameraAltOutlined';
-
+import ChangeProfilePhoto from './ChangeProfilePhoto'
 
 
 const useStyles = theme => ({
@@ -39,7 +39,8 @@ class SignOut extends Component {
         this.state = {
             click: false,
             anchorEl:null,
-
+            changeProfile:false,
+            profileUrl:null
         }
     }
     handlePopoverOpen = event => {
@@ -54,7 +55,23 @@ class SignOut extends Component {
         localStorage.clear();
         this.props.DashboardProps.history.push('/')
     }
-
+    closeProfileDialog=(value,value2)=>{
+        this.setState({changeProfile:value})
+        if(value2 !== null){
+            this.setState({profileUrl:value2})
+        }
+        
+        //this.props.DashboardProps();
+    }
+    componentDidMount(){
+        this.setState({profileUrl:localStorage.getItem('profilePhoto')})
+    }
+    componentDidUpdate(){
+        if(this.state.profileUrl !==localStorage.getItem('profilePhoto')){
+            
+            this.setState({profileUrl:localStorage.getItem('profilePhoto')})
+        }
+    }
     render() {
         const { classes } = this.props;
         const { anchorEl } = this.state;
@@ -74,7 +91,7 @@ class SignOut extends Component {
                 <MuiThemeProvider theme={theme}>
                 <Tooltip title="Fundoo Account">
                     <IconButton onClick={this.handlePopoverOpen} >
-                    <Avatar>S</Avatar>
+                    <Avatar src={this.state.profileUrl}>S</Avatar>
                     </IconButton>
                 </Tooltip>
                 {this.state.anchorEl !== null ?
@@ -82,17 +99,20 @@ class SignOut extends Component {
                 <Popper id={this.props.noteId}  open={open} anchorEl={anchorEl}
                     className={classes.paper} style={{zIndex:1300,opacity:1}}  disableRestoreFocus >
                 <div>
+                   
                  <Badge
                     overlap="circle"
                     anchorOrigin={{
                     vertical: 'bottom',
                     horizontal: 'right',
                     }}
-                    style={{backgroundColor:'white'}}
-                    badgeContent={<CameraAltOutlinedIcon/>}
+                    badgeContent={<CameraAltOutlinedIcon style={{background: 'aliceblue',
+                    borderRadius: '7px'}}/>}
+                    onClick={()=>this.setState({changeProfile:true})}
                 >
-                <Avatar style={{width:'100px',height:'100px',marginTop:'2em'}}>S</Avatar>
+                <Avatar src={this.state.profileUrl} style={{width:'100px',height:'100px',marginTop:'2em'}}>S</Avatar>
                 </Badge>
+               
                 <Typography style={{marginTop:'1em'}}>
                     {localStorage.getItem('UserEmail')}
                 </Typography>
@@ -104,6 +124,7 @@ class SignOut extends Component {
                 </ClickAwayListener>
                 : null}
                 </MuiThemeProvider>
+                {this.state.changeProfile?<ChangeProfilePhoto closeProfileDialog={this.closeProfileDialog}/> :null}
             </div>
         );
     }

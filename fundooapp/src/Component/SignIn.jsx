@@ -40,6 +40,7 @@ login =(event) =>{
             console.log('Backend recevied token:',token);
             localStorage.setItem('Token',token)
             localStorage.setItem('UserEmail',this.state.email)
+            localStorage.setItem('profilePhoto',response.data.data.profilePhoto)
             this.props.history.push('/dashboard/note');
            
         })

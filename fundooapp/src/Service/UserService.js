@@ -145,6 +145,16 @@ export default class UserService{
         } 
         return axiosObj.Post("Notes/AddCollaborators/"+noteId,data,tokenObject.tokenAuth)
     }
+    SetProfilePhoto(data){
+        tokenObject.tokenAuth={
+            headers: {
+                            'Content-Type':'application/json',
+                            'Accept':'*',
+                             Authorization: 'Bearer '+localStorage.getItem('Token')
+                     }
+        } 
+        return axiosObj.Post("Account/AddProfilePhoto",data,tokenObject.tokenAuth)
+    }
     getCollaborators(){
         tokenObject.tokenAuth={
             headers: {
