@@ -10,7 +10,8 @@ class UploadImage extends Component {
     
 
     handleUploadImage = (e,data) => {
-    
+        console.log('in image',URL.createObjectURL(e.target.files[0]));
+        if(this.props.image === undefined){
         let fileData = new FormData();
         fileData.append('file',e.target.files[0]);
         userService.AddImage(fileData, data).then(
@@ -23,6 +24,10 @@ class UploadImage extends Component {
                 console.log('error=>', error);
             }
         )
+        }
+        else{
+            this.props.handleImage(e.target.files[0]);
+        }
     }
 
     render() {
@@ -36,15 +41,16 @@ class UploadImage extends Component {
 
                     onChange={(event) => this.handleUploadImage(event,this.props.noteId)}
                 />
-
-                    <Tooltip title="Add image">
+                <Tooltip title="Add image">
+                    <IconButton aria-label="image">
+                    
                         <label htmlFor={'NoteImage'+this.props.noteId} style={{marginTop:'0.3em'}}>
-                        <IconButton aria-label="image">
+                        
                             <ImageOutlinedIcon fontSize="small" />
-                            </IconButton>
-                        </label>
+                        
+                        </label></IconButton>
                     </Tooltip>
-
+                    
             </>
         );
     }

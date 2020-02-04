@@ -120,11 +120,14 @@ class DisplayNote extends Component {
       }
     )
   }
+  onDragStart=(e,id)=>{
+    console.log('id',id);
+    e.dataTransfer.setData('id',id);
+  }
   render() {
 
 
     const userList = this.props.noteData.collaborators !== null && this.props.noteData.collaborators.map((value, index) => {
-      console.log('>',value);
       return (
         <ListItem key={value.collabratorId}>
           <Tooltip title={value.collaboratorEmail}>
@@ -171,8 +174,12 @@ class DisplayNote extends Component {
       <MuiThemeProvider theme={theme}>
         {
           !this.state.click ?
-
-            <Card id={this.props.noteData.id} className={!this.props.toggleView ? classes.card : classes.ListView} style={{ backgroundColor: this.props.noteData.color }} >
+            <Card key={"note"+this.props.noteData.id} 
+           // onDragStart={(e)=>this.onDragStart(e,"note"+this.props.noteData.id)}
+            
+            className={!this.props.toggleView ? classes.card : classes.ListView} 
+            style={{ backgroundColor: this.props.noteData.color }} 
+            >
               <div onClick={this.handleEditNote}>
                 {this.props.noteData.image === "" || this.props.noteData.image === null ? null :
 
@@ -180,7 +187,7 @@ class DisplayNote extends Component {
 
                 }
               </div>
-              <CardContent onClick={this.handleEditNote}>
+              <CardContent onClick={this.handleEditNote} >
 
                 <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', justifyItems: 'center' }}>
 
@@ -228,7 +235,7 @@ class DisplayNote extends Component {
                   )) : null}
                 {this.props.noteData.collaborators === null ?
                   null : 
-                  <List style={{ display: 'flex', marginLeft: '0.8em' }}>
+                  <List style={{ display: 'flex', marginLeft: '0.3em' }}>
                     {userList}
                   </List>
                 }
@@ -237,23 +244,17 @@ class DisplayNote extends Component {
                 <CardActions className={!this.props.toggleView ? classes.icon : classes.ListIcon} disableSpacing>
 
                   {/* reminder */}
-                  <>
+                  
                     <MaterialUIPickers noteId={this.props.noteData.id} handleReminder={this.handleReminder} />
-                  </>
+                  {/*collaborator */}
 
-                  <>
                     <Addcollaborator noteId={this.props.noteData.id} handleGetNotes={this.props.handleGetNotes} />
-                  </>
+                  
                   {/* Change Color */}
-                  <>
                     <ChangeColor noteId={this.props.noteData.id} handleGetNotes={this.props.handleGetNotes} />
-                  </>
-
+    
                   {/* Add image */}
-                  <>
                     <UploadImage noteId={this.props.noteData.id} handleGetNotes={this.props.handleGetNotes} />
-                  </>
-
 
                   {/* Archive */}
                   <Tooltip title="Archive">
@@ -263,9 +264,9 @@ class DisplayNote extends Component {
                   </Tooltip>
 
                   {/* More Menu */}
-                  <>
+                  
                     <MoreMenu noteId={this.props.noteData.id} handleGetNotes={this.props.handleGetNotes} />
-                  </>
+                  
 
                 </CardActions>
 
@@ -287,7 +288,6 @@ class DisplayNote extends Component {
                   </Tooltip>
                 </CardActions>}
             </Card>
-
             // edit note component
             : <EditNote handleGetNotes={this.props.handleGetNotes} handleEditNoteResponce={this.handleEditNoteResponce} noteData={this.props.noteData} />
         }

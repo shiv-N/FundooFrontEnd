@@ -5,7 +5,6 @@ import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
 import { useStyles } from '../css/CustomizedInputBaseCSS'
 import { withStyles } from '@material-ui/core/styles'
-import ImageOutlinedIcon from '@material-ui/icons/ImageOutlined';
 import ArchiveOutlinedIcon from '@material-ui/icons/ArchiveOutlined';
 import MoreVertOutlinedIcon from '@material-ui/icons/MoreVertOutlined';
 import Button from '@material-ui/core/Button';
@@ -18,6 +17,7 @@ import pin from '../logo/pin.svg'
 import ChangeColor from './ChangeColor';
 import MaterialUIPickers from './MaterialUIPickers';
 import Addcollaborator from './AddCollaborators';
+import UploadImage from './UploadImage'
 
 var userService = new UserService();
 
@@ -27,7 +27,7 @@ const defaultState={
       image: '',
       color: null,
       isPin: false,
-      addReminder: null,
+      Reminder: null,
       isArchive: false,
       isNote: true,
       isTrash: false
@@ -47,7 +47,7 @@ class CustomizedInputBase extends Component {
       Image: this.state.image,
       Color: this.state.color,
       IsPin: this.state.isPin,
-      AddReminder: this.state.addReminder,
+      AddReminder: this.state.Reminder,
       IsArchive: this.state.isArchive,
       IsNote: this.state.isNote,
       IsTrash: this.state.isTrash
@@ -66,7 +66,7 @@ class CustomizedInputBase extends Component {
             image: '',
             color: null,
             isPin: false,
-            addReminder: null,
+            Reminder: null,
             isArchive: false,
             isNote: true,
             isTrash: false
@@ -87,6 +87,7 @@ class CustomizedInputBase extends Component {
     })
   }
   onChange = (e) => {
+    
     this.setState(
       {
         [e.target.name]: e.target.value
@@ -96,7 +97,7 @@ class CustomizedInputBase extends Component {
   }
   handleReminder = (dataFromChild) => {
     this.setState({
-      addReminder: dataFromChild
+      Reminder: dataFromChild
     })
   }
   handleColor=(dataFromChild)=>{
@@ -104,13 +105,33 @@ class CustomizedInputBase extends Component {
       color: dataFromChild
     })
   }
+  handleDeleteReminder=async()=>{
+    await this.setState({
+      Reminder: null
+    })
+    //this.props.handleGetNotes();
+  }
+  handleImage=async(dataFromChild)=>{
+    let fileData = new FormData()
+      fileData.append('file',dataFromChild);
+    await userService.AddImageOnNote(fileData).then(
+      response=>{
+        this.setState({
+          image:response.data.data
+        })
+      }
+    )
+  }
   render() {
-
     const { classes } = this.props;
-
     return (
       <Paper className={classes.root} style={{ backgroundColor: this.state.color }}>
 
+        {this.state.image === "" || this.state.image === null ? null :
+
+        <img style={{width:'100%'}} src={this.state.image} alt='noteImage' />
+
+        }
         <Paper component="form" className={classes.root2} style={{ backgroundColor: this.state.color }}
         >
 
@@ -140,32 +161,26 @@ class CustomizedInputBase extends Component {
             name="noteDescription"
             onChange={this.onChange}
           /><br></br>
-          {this.state.addReminder !== null ?
-          <Chip style={{ width: "45%" }}
+          {this.state.Reminder !== null ?
+          <Chip style={{ width: "38%" }}
             variant="outlined"
             size="small"
             icon={<AccessTimeIcon />}
             label={<Moment format="MMMM Do, h:mm a">{this.state.addReminder}</Moment>}
           // onClick={handleClick}
-          // onDelete={handleDelete}
+           onDelete={this.handleDeleteReminder}
           /> : null}
         </Paper> 
         <Paper component="form" className={classes.root2} style={{ backgroundColor: this.state.color }}>
-          <div>
+          
             <MaterialUIPickers handleReminder={this.handleReminder} />
-          </div>
-
-          <>
-              <Addcollaborator handleGetNotes={this.props.handleGetNotes}/>
-          </>
-
-          <div>
-              <ChangeColor colorCode={this.state.color} color={this.handleColor} handleGetNotes={this.props.handleGetNotes} />
-          </div>
-          <IconButton aria-label="Image">
-            <ImageOutlinedIcon />
-          </IconButton>
-
+          
+            <Addcollaborator handleGetNotes={this.props.handleGetNotes}/>
+          
+            <ChangeColor colorCode={this.state.color} color={this.handleColor} handleGetNotes={this.props.handleGetNotes} />
+          
+            <UploadImage image={this.state.image} handleImage={this.handleImage} handleGetNotes={this.props.handleGetNotes} />
+          
           <IconButton aria-label="archive">
             <ArchiveOutlinedIcon />
           </IconButton>
@@ -175,7 +190,7 @@ class CustomizedInputBase extends Component {
           </IconButton>
           <Button variant="contained" onClick={this.AddNote} style={{ backgroundColor: this.state.color, color: 'rgba(0,0,0,0.87)', textTransform: 'capitalize', marginLeft: '26%'}} disableElevation>
             close
-                    </Button>
+          </Button>
         </Paper>
       </Paper>
 

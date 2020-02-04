@@ -54,7 +54,7 @@ class MaterialUIPickers extends React.Component {
         constructor(props){
             super(props);
             this.state={
-                selectedDate:new Date('2020-01-01T09:00:00'),
+                selectedDate:new Date(),
                 anchorEl: null,
             }
         }
@@ -91,7 +91,7 @@ render(){
     
   return (
       
-    <div>
+    <>
     <Tooltip title="Remind me">
     <IconButton aria-label="reminder" onClick={this.handlePopoverOpen} >
       <AddAlertOutlinedIcon fontSize="small" />
@@ -104,7 +104,7 @@ render(){
         <KeyboardDatePicker
           margin="normal"
           id="date-picker-dialog"
-          label="Date picker dialog"
+          label="Pick a Date"
           format="dd/MM/yyyy"
           value={this.state.selectedDate}
           onChange={this.handleDateChange}
@@ -115,7 +115,7 @@ render(){
         <KeyboardTimePicker
           margin="normal"
           id="time-picker"
-          label="Time picker"
+          label="Pick a Time"
           format="h:mm a"
           value={this.state.selectedDate}
           onChange={this.handleDateChange}
@@ -128,7 +128,7 @@ render(){
     
     </Popper>
           : null}
-      </div>
+      </>
   );
 }
 }

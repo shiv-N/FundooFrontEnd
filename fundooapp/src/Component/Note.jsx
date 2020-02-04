@@ -50,19 +50,35 @@ class Note extends Component {
             }
         )
     }
+    onDragStart=(e,id)=>{
+        console.log('id',id);
+        e.dataTransfer.setData('id',id);
+      }
     DisplayPinNotes=(value,index)=> {
         return(
-            //<div key={"pinned"+index}>   
-                value.isPin?<DisplayNote noteData={value} key={"pinned"+index} handleGetNotes={this.handleGetNotes}/>:null
-            //</div>
+            value.isPin?
+            <div key={"pinned"+index} 
+            onDragStart={(e)=>this.onDragStart(e,"pinned"+index)}
+            draggable>   
+                <DisplayNote noteData={value} key={"pinned"+index} handleGetNotes={this.handleGetNotes}/>
+            </div>:null
          ) }
 
     DisplayUnPinNotes=(value,index)=> {
         return(
-            // <div key={"pinned"+index}>
-                !value.isPin?<DisplayNote noteData={value} key={"unpineed"+index} handleGetNotes={this.handleGetNotes}/>:null
-            // </div>
+            <div key={"pinned"+index}
+            onDragStart={(e)=>this.onDragStart(e,"pineed"+index)}
+            draggable   
+            >
+                {!value.isPin?<DisplayNote  noteData={value} key={"pineed"+index} handleGetNotes={this.handleGetNotes} draggable/>:null}
+            </div>
         ) }
+    onDragOver=(e)=>{
+        e.preventDefault();
+    }
+    onDrop=(e)=>{
+
+    }
     render() {
         
         let pin = this.state.getAllUserNotes.filter(function (data) {
@@ -81,12 +97,15 @@ class Note extends Component {
                         {/* </ClickAwayListener> */}
                     </div>
                     {   pin.length !==0?
-                        <div style={{ marginLeft: "18em",marginTop:"3em"}}>
+                        <div className='PinKeywords'>
                         Pinned
                         </div>:null
                     }
                     
-                    <div className="noteContainer" style={{marginTop:"1em"}}>
+                    <div className="noteContainer" style={{marginTop:"1em"}}
+                    onDragOver={(e)=>this.onDragOver(e)}
+                    onDrop={(e)=>this.onDrop(e,'pinned')}
+                    >
                     
                         {
                             this.state.getAllUserNotes !== null &&
@@ -97,10 +116,13 @@ class Note extends Component {
                         
                     </div>
                     {   pin.length !==0?
-                    <div style={{ marginLeft: "18em",marginTop:"2em"}}>
+                    <div className='PinKeywords'>
                     Others
                     </div>:null}
-                    <div className="noteContainer" style={{marginTop:"1em"}}>
+                    <div className="noteContainer" style={{marginTop:"1em"}}
+                    onDragOver={(e)=>this.onDragOver(e)}
+                    onDrop={(e)=>this.onDrop(e,'unpineed')}
+                    >
                         {
                             this.state.getAllUserNotes !== null &&
                             (this.state.getAllUserNotes).map((value,index) => (

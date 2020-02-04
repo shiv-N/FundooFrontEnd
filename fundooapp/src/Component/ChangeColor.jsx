@@ -64,7 +64,6 @@ class ChangeColor extends Component {
         }
     }
     ChangeColor=()=>{
-        console.log("qqq12--> ", this.props.noteId)
         var colorData={
             color : this.state.color
         }
@@ -80,7 +79,7 @@ class ChangeColor extends Component {
         const { anchorEl } = this.state;
         const open = Boolean(anchorEl);
         return (
-            <div>
+            <>
                 <Tooltip title="Change color">
                 <IconButton onClick={this.handlePopoverOpen} >
                     <ColorLensOutlinedIcon fontSize="small" />
@@ -101,7 +100,7 @@ class ChangeColor extends Component {
                 </ClickAwayListener>
                 : null}
                
-            </div>
+            </>
         );
     }
 }

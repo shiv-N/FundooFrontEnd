@@ -134,7 +134,7 @@ class AddCollaborators extends React.Component {
     const open = Boolean(anchorEl);
     
     return (
-      <div>
+      <>
         <MuiThemeProvider theme={theme}>
             <Tooltip title="Collaborator">
               <IconButton aria-label="collaboration" onClick={this.handleOpen}>
@@ -190,7 +190,7 @@ class AddCollaborators extends React.Component {
             </Paper>
           </Dialog>
         </MuiThemeProvider>
-      </div>
+      </>
     );
   }
 }

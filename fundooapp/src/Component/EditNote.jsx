@@ -22,6 +22,10 @@ import DialogActions from '@material-ui/core/DialogActions';
 import MaterialUIPickers from './MaterialUIPickers'
 import Addcollaborator from './AddCollaborators';
 import UploadImage from './UploadImage'
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import { Avatar } from '@material-ui/core';
+import Tooltip from '@material-ui/core/Tooltip';
 
 var userService = new UserService();
 
@@ -111,6 +115,17 @@ class EditNote extends React.Component {
     }
     this.props.handleEditNoteResponce(this.state.open);
   };
+  handleDeleteReminder = (noteId) => {
+    var reminderData = {
+      Reminder: null
+    }
+    userService.DeleteReminder(reminderData, noteId).then(
+      response => {
+
+        this.props.handleGetNotes();
+      }
+    )
+  }
   onChange = (e) => {
     this.setState(
       {
@@ -120,6 +135,19 @@ class EditNote extends React.Component {
 
   }
   render() {
+    const userList = this.props.noteData.collaborators !== null && this.props.noteData.collaborators.map((value, index) => {
+      console.log('>',value);
+      return (
+        <ListItem style={{paddingLeft:'4px',paddingRight:'4px'}}
+        key={value.collabratorId}>
+          <Tooltip title={value.collaboratorEmail}>
+            <Avatar src={value.profilePhoto}style={{ width: "20px", height: "20px" }}></Avatar>
+          </Tooltip>
+          {/* <ListItemText primary={value.collabratorId}/> */}
+        </ListItem>
+      );
+
+    })
     const theme = createMuiTheme({
       overrides: {
         MuiDialog: {
@@ -163,16 +191,37 @@ class EditNote extends React.Component {
             />
 
           </CardContent>
+          <div style={{ display: 'flex', flexDirection: 'row',alignItems:'center',flexWrap: "wrap" }}>
           {this.props.noteData.addReminder !== null ?
-            <Chip style={{ marginLeft: '1em', width: "30%" }}
+            <Chip style={{ backgroundColor: "#443e374d",marginLeft: '1em', width: "37%" }}
               variant="outlined"
               size="small"
               icon={<AccessTimeIcon />}
-              label={<Moment format="DD-MM-YYYY HH:mm">{this.props.noteData.addReminder}</Moment>}
+              label={<Moment format="MMMM Do, h:mm a">{this.props.noteData.addReminder}</Moment>}
             // onClick={handleClick}
-            // onDelete={handleDelete}
+              onDelete={() => this.handleDeleteReminder(this.props.noteData.id)}
             /> : null}
 
+          {this.props.noteData.labels !== null ?
+                  this.props.noteData.labels.map((data, index) => 
+                  (
+                    <Chip key={'label:' + data.labelName}
+                      style={{ backgroundColor: "#443e374d", marginLeft: '0.8em' }}
+                      variant="outlined"
+                      size="small"
+                      label={data.labelName}
+                      // onClick={handleClick}
+                      onDelete={() => this.handleDeleteLabel(data)}
+                    />
+                  )) : null}
+          
+          {this.props.noteData.collaborators === null ?
+                  null : 
+                   <List style={{ display: 'flex', marginLeft: '0.4em',overflow:'auto' }}>
+                    {userList}
+                   </List>
+          } 
+          </div>
           {!this.props.noteData.isTrash ?
             <DialogActions className={classes.root2} disableSpacing>
               <>

@@ -38,6 +38,7 @@ const styles = {
     flexDirection: 'row',
     justifyContent: "space-between",
     flexWrap: 'wrap',
+    zIndex:'1300',
     '&:hover': {}
   },
   container: {
@@ -120,7 +121,7 @@ class MoreMenu extends React.Component {
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
     return (
-      <div>
+      <>
          <MuiThemeProvider theme={theme}>
         <Tooltip title="More">
           <IconButton aria-label="moreMenu" onClick={this.handlePopoverOpen} className={classes.iconButton}>
@@ -180,7 +181,7 @@ class MoreMenu extends React.Component {
           </ClickAwayListener>
           : null}
           </MuiThemeProvider>
-      </div>
+      </>
     );
   }
 }
